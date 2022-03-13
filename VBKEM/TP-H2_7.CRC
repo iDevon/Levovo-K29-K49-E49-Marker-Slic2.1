@@ -1,0 +1,12 @@
+(c) Copyright 2006 Microsoft Corp.
+[ OATool version 2.1.1.1 ]
+OEMID = "L E N O V O"
+OEMTableID = "T P - H 2 <space> <space> <space>"
+OA20Marker.bin file written successfully
+The marker file is included twice in the zip 
+Once as "TP-H2   7.BIN" and as it's original filename 
+"OA20Marker.bin"  The CRC for each should match. 
+"TP-H2   7.BIN" CRC = 
+529d7db3
+OA20Marker.bin CRC = 
+529d7db3

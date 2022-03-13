@@ -1,0 +1,404 @@
+::========================= TE NG Message Table ============================================
+:: Ê¹ÓÃËµÃ÷:  
+::    1.Ê¹ÓÃWord¿ªÆô±¾µµ
+::    2.×ª»»³É¼òÖÐ×ÖÐÎ
+::    3.Áí´æÐÂ™n(SC_VXX.TXT),Ñ¡ÔñÆäËü±àÂëÄ£Ê½(GB18030)
+:: Version: 044
+::==========================================================================================
+
+TeCode      ScCode     ErrCode  Description                                                                            Action
+----------  ---------- -------  -------------------------------------------------------------------------------------  --------------------------------------
+::-- No TE code
+NO_TE_CODE  Ìí¼ÓNG´úÂë SF00     NG´úÂë[1;31m"%TE_Code%"[1;36mÎÞ·¨ÕÒµ½                                                ÇëÕÒTEÔÚ%VerFile%ÀïÌí¼Ó       
+::-- ACBAT
+CHARGE_OT   ³ä·Åµç³¬Ê± SF00     ³ä·Åµç³¬¹ýÔ¤¶¨Ê±¼ä[15;26H×î´ó²âÊÔÊ±¼ä%Test_Time%·Ö                                    ÖØ²â,NGËÍÐÞ»¤
+BATT_OH     " µç³Ø¹ýÈÈ SF00     µç³ØÎÂ¶È%Temperature%øC,¹ýÈÈ[15;26H×î¸ß²»³¬¹ý%Over_Heat%øC                            ÖØ²â,NGËÍÐÞ»¤
+BATTTESTNG  ³ä·ÅµçÊ§°Ü SF00     µçÁ÷³¬³ö·¶Î§%Error%´Î[15;26H×î¸ß²»³¬¹ý%Max_Error_Times%´Î                             ÖØ²â,NGËÍÐÞ»¤
+CHKCAP_NG   " µçÁ¿Òì³£ SF00     µçÁ¿Îª%Capacity%%%,±ê×¼·¶Î§%Cap_Min%%%~%Cap_Max%%%                                     ½«µçÁ¿¿ØÖÆµ½±ê×¼·¶Î§ÄÚ
+::-- Heatsink
+TEMP_NG     CPUÎÂ¶È¸ß  SF00     CPUÎÂ¶È%CPUth%øC,¹ýÈÈ[15;26H×î¸ß²»³¬¹ý%LimitTemp%øC                                   ¼ì²é»úÌ¨É¢ÈÈÊÇ·ñOK
+COOL_FAIL   " ½µÎÂÊ§°Ü SF00     Éý½µÎÂ²âÊÔÊ§°Ü                                                                         ¼ì²é»úÌ¨É¢ÈÈÊÇ·ñOK
+::-- SFCS
+NOSFCFNAME  SFCSÎÄ¼þÃû SF00     SFCSÉÏÅ×%Sfc_Send_Type%ÎÄ¼þÃû²ÎÊýSfc_File_NameÎª¿Õ                                     Çë¼ì²é³ÌÊ½           
+SFC_INFONG  ÎÞSFCSÐÅÏ¢ SF00     SFCS»ØNGÐÅÏ¢Ã»ÓÐÔÚSFCSINFO.INIÀï[15;26H%SFC_Chk_Result%                               ÇëTEÌí¼Ó
+SFC_NORES   RESULTÎª¿Õ SF00     SFCS AAAÎÄ¼þ»ØµÄRESULTÎª¿Õ                                                             ÇëÕÒTE&MISÈ·ÈÏ
+SFC_2TQ     " TQ  Â©Õ¾ SF00     TQÂ©Õ¾                                                                                 ÖØË¢TQÕ¾
+SFC_2AO     " AO  Â©Õ¾ SF00     AO(×é×°)Â©Õ¾                                                                           ÖØË¢AOÕ¾
+SFC_2IN     " IN  Â©Õ¾ SF00     IN(Ç°¶Î×Ü¼ì)Â©Õ¾                                                                       ÖØË¢INÕ¾
+SFC_2TS     " ²âÊÔÂ©Õ¾ SF00     TS(²âÊÔ)Â©Õ¾                                                                           ÖØÐÂ»ØÁ÷²âÊÔÕ¾
+SFC_2TO     RUNINÂ©Õ¾  SF00     TO(Runin)Â©Õ¾                                                                          ÖØ²âRunin
+SFC_2TV     " TV  Â©Õ¾ SF00     TV(Preload)Â©Õ¾                                                                        ÖØ×öPreload
+SFC_2TP     FINALÂ©Õ¾  SF00     TP(Final)Â©Õ¾                                                                          ÖØÐÂ²âÊÔFinal
+SFC_2IP     " IP  Â©Õ¾ SF00     IP(Compare)Â©Õ¾                                                                        ÖØ»ØCompareÕ¾
+SFC_2IU     " IU  Â©Õ¾ SF00     IU(RackCheck)Â©Õ¾                                                                      ÖØË¢IUÕ¾
+SFC_2IO     " IO  Â©Õ¾ SF00     IO(ºó¶Î×Ü¼ì)Â©Õ¾                                                                       ÖØË¢IOÕ¾
+SFC_2IV     " IV  Â©Õ¾ SF00     IV(PRCODEV)Â©Õ¾                                                                        ÖØ»ØIVÕ¾
+SFC_2PP     " PP  Â©Õ¾ SF00     PP(WEIGHT after packing)Â©Õ¾                                                           ÖØ»ØPPÕ¾
+SFC_2QO     " QO  Â©Õ¾ SF00     QO(OOB)Â©Õ¾                                                                            ÖØ»ØQOÕ¾
+SFC_2QT     " QT  Â©Õ¾ SF00     QT(CQA-Compare)Â©Õ¾                                                                    ÖØ»ØQTÕ¾
+SFC_2RN     "  ËÍÐÞ»¤  SF00     »úÌ¨ÒÑ¾­Ë¢NG                                                                           ËÍÐÞ»¤Î¬ÐÞ
+SFC_2SN     »úÌ¨ÒÑÈë¿â SF00     ¸Ã»úÌ¨Õ¾±ðÒÑ¾­Èë¿â                                                                     ¼ì²é»úÌ¨Õ¾±ð
+SFC_NOPA    " ²ÎÊýÎª¿Õ SF00     ¼ì²éRRR/BBBÖÐSSN»òLANID²»Îª¿Õ[15;26H¼ì²éÌõÂëÓëMBÄÚLANIDÏàÍ¬                           ÏàÍ¬»ØAOÕ¾ÖØË¢,²»Í¬»»MB
+SFC_NICCID  BBBÈ±ICCID SF00     BBBÎÄ¼þÖÐICCID²»ÄÜÎª¿Õ                                                                 ¼ì²éBBBÎÄ¼þ
+SFC_NOMAC   " BBBÈ±MAC SF00     BBBÎÄ¼þÖÐMAC»òUUID²»ÄÜÎª¿Õ                                                             ¼ì²éBBBÎÄ¼þ
+SFC_NPNKEY  BBBÈ±PNKEY SF00     BBBÎÄ¼þÖÐPNKEY²»ÄÜÎª¿Õ                                                                 ¼ì²éBBBÎÄ¼þ
+SFC_NWIMAX  BBBÈ±WIMAX SF00     BBBÎÄ¼þÖÐWIMAXMAC²»ÄÜÎª¿Õ                                                              ¼ì²éBBBÎÄ¼þ
+SFC_NOUSN   " AD  Â©Õ¾ SF00     Ö÷°åÃ»Ë¢touchup                                                                        »ØË¢touchup
+SFC_VLARGE  Õ¾±ðÅ×Ì«¶à SF00     »úÌ¨Á÷³Ì¼ÇÂ¼¹ý¶à                                                                       ÇëÕÒMISÉ¾³ýÒ»Ð©Á÷³Ì
+SFC_MACCMP  MAC±È¶ÔNG  SF00     »úÌ¨MACÓëPCBA¼ÇÂ¼²»·û                                                                  ¼ì²éSFCSÁ÷³Ì
+SFC_MACNG   MAC±È¶Ô´í  SF00     »úÌ¨: %LANID% [15;26HPCBA: %PCBAMAC%                                                  ¼ì²éÌõÂëÓëMBÄÚLANIDÏàÍ¬[19;26HÏàÍ¬»ØAOÕ¾ÖØË¢,²»Í¬»»MB
+SFC_NOST    ÎÞSFCSÕ¾±ð SF00     ²»´æÔÚSFCSÕ¾±ð´úÂë"%STCode%"                                                           ¼ì²éSFCSÕ¾±ðÊÇ·ñ¶Ô
+SFC_NOUNIT  Ö÷»ú²»´æÔÚ SF00     ²»´æÔÚ»úÌ¨"%unitsn%"                                                                   ¼ì²éRRR/BBBÀïSSNÕýÈ·»òSFCSÁ÷³Ì
+SFC_STORE   »úÌ¨ÒÑÈë¿â SF00     »úÌ¨"%unitsn%"ÒÑÈë¿â                                                                   ¼ì²éSFCSÁ÷³Ì
+SFC_CHARNG  " ÌõÂë´íÎó SF00     »úÌ¨ÌõÂë"%BoxSN%"ÖÐÓÐ·Ç·¨×ÖÄ¸                                                          ¼ì²éRRR/BBBÀïSSNÕýÈ·
+SFC_RP      "  ËÍÐÞ»¤  SF00     »úÌ¨"%unitsn%"ÐèËÍÐÞ»¤                                                                 ËÍÐÞ»¤Î¬ÐÞ
+SFC_NST     ¹¤µ¥Ã»Õ¾±ð SF00     ¸Ã¹¤µ¥"%sfmo%"²»º¬Õ¾±ð"%unitsn%"                                                       Çë¼ì²éÕ¾±ð
+::-- SP Item Number
+MORESPITEM  SP¼Ü¹¹ÖØ¸´ SF00     ÖØ¸´½¨ÁË%SPITEMNUM%¸öÌØÊâ¼Ü¹¹%Pn@%[15;26HÔÚ\Func\SpSet\Special.iniÀï                  ÇëÕÒTE¸ü¸Ä
+::-- SP CMOS Setting
+NOCMSFILE   ÎÞCMOSÎÄ¼þ SF00     ¸Ã¼Ü¹¹ÐèÒªCMOSÉè¶¨[15;26Hµ«ÔÚ\cmsÕÒ²»µ½CMOSÎÄ¼þ%PN@%.cms                              ÇëÕÒTEÌí¼Ó
+CHKCMSFILE  " È·ÈÏCMOS SF00     ¸Ã¼Ü¹¹ÔÚ\cmsÓÐCMOSÎÄ¼þ%PN@%.cms[15;26Hµ«ÔÚspecial.iniÃ»ÓÐÉè¶¨                         ÇëÕÒTEÈ·ÈÏ
+SETCMSNG    ÉèCMOS³ö´í SF00     ¸Ã»úÌ¨Éè¶¨CMOSÊ±³ö´í%PN@%.cms[15;26HÈ·ÈÏÓÐ°´"Y"Éè¶¨                                   ÇëÕÒTE·ÖÎö
+::-- SP UUID HR
+UUHR_LENNG  UUHR³¤¶È´í SF00     µÃµ½µÄUUID HR³¤¶È²»ÊÇ36Î»[15;26HUUID HR:"%UuidHr%"                                    ÇëÕÒTE·ÖÎö
+UUHR_NG     UUIDHR´íÎó SF00     UUID HR²»ÄÜ°üº¬Îå¸öÁ¬ÐøµÄ0[15;26HUUID HR:"%UuidHr%"                                   Èç¹ûÈ«ÊÇ0Çë´ÓWin-Download»ØÁ÷
+::-- SP Ser Number
+NO_SERNUM   ÎÞSERM¶¨Òå SF00     ÌØÊâÉè¶¨SER_NUM:%SP_SERNM%ÔÚ³ÌÊ½ÖÐÃ»ÓÐÉè¶¨                                             ÇëÕÒTEÐÞ¸Ä³ÌÊ½
+SETSERNMNG  ÉèSERM³ö´í SF00     Éè¶¨SER_NUM:%SP_SERNM%³ö´í                                                             ÇëÕÒTE·ÖÎö
+::-- SP Date
+SETDATENG   ÉèÊ±¼ä³ö´í SF00     Éè¶¨ÌØÊâµÄCMOSÊ±¼ä%SP_DATE%³ö´í                                                        ÇëÕÒTE·ÖÎö
+::-- BIOS
+NO_BLD      ÎÞBLDÎÄ¼þ  SF00     ÎÞ·¨ÕÒµ½%FBIOS%.BLDÎÄ¼þÔÚBIOSÎÄ¼þ¼ÐÄÚ                                                  ÇëÕÒTEÌí¼Ó
+NO_CPUID    BIOS²»Ö§³Ö SF00     "%FBIOS%"°æBIOS²»Ö§³ÖIDÎª"%CPUID@%"µÄCPU                                               ÇëÕÒTEÈ·ÈÏ
+BBIOSPN_NG  BH¼Ü¹¹³ö´í SF00     BIOS Batch¼Ü¹¹²»¶ÔÓ¦[15;26HÕýÈ·: %B_BIOS_PN% ÏµÍ³: %PN@%                              ¹¤µ¥%SFCS_MO%,ÇëÕÒTEÈ·ÈÏ
+BIOSHD_NG   BIOS²»Æ¥Åä SF00     MBµÄBIOSÎª%BIOS@%:%BIOSHD@%[15;26HÐè¸üÐÂBIOSÎª%FBIOS%:%BIOSHD%                        ÇëÕÒTEÈ·ÈÏÊÇ·ñ¿ÉÒÔ¸üÐÂ
+BIOS_NG     ÉÕBIOS³ö´í BI01     BIOS "%FBIOS%"ÎÞ·¨ÉÕÐ´                                                                 Í¨ÖªTE·ÖÎöÔ­Òò
+NOBIOSFILE  È±BIOSÎÄ¼þ SF00     BIOSÎÄ¼þ¼ÐÖÐÈ±ÉÙBIOSÎÄ¼þ%FBIOS%                                                        Í¨ÖªTEÌí¼Ó
+BIOSVER_NG  BIOS°æ±¾´í BI02     ÕýÈ·: %BIOS% [15;26H»úÌ¨: %BIOS@%                                                     Í¨ÖªTE·ÖÎöÔ­Òò
+NOBIOSMOD   È±LOGOÎÄ¼þ SF00     È±ÉÙË¢BIOS LOGOµÄ%SP_BIOSLOGO%.MODÎÄ¼þ                                                 Í¨ÖªTEÌí¼Ó
+BIOSLOGONG  ¼ì²éLOGO´í SF00     ÕýÈ·µÄBIOS LOGOÉèÖÃÎª%SP_BIOSLOGO%,Êµ¼ÊÏà·´                                            ÇëÕÒTEÈ·ÈÏ
+DGVER_NG    " ¼ì²é¹¤µ¥ SF00     BIOS»òKBCÐè´Ó%VerOld%½µµ½%VerNew%[15;26HÇëÈ·ÈÏ¹¤µ¥%Sfcs_Mo%                           Èç¹ûOK½«¹¤µ¥¼ÓÈë\tool\chkdgver.ini
+ADDBATCHMO  Ìí¼ÓBH¹¤µ¥ SF00     ¹¤µ¥%Sfcs_MO%ÓÐSW00001[15;26HÈ·ÈÏÊÇ·ñÅÜBatch¹¤µ¥                                      Èç¹ûOKÔÚ\config\batch.iniÖÐÌí¼Ó                              
+ADDSW00001  Ìí¼ÓBHÁÏºÅ SF00     ¹¤µ¥%Sfcs_MO%Ã»ÓÐSW00001[15;26Hµ«ÊÇ\config\batch.iniÖÐÓÐÌí¼Ó                          ÕÒPCÔÚ¹¤µ¥Ìí¼ÓSW00001                              
+ADDBHD2     " ÎÞBIOS2  SF00     ²ÎÊýBIOS2Îª¿Õ[15;26HÈ·ÈÏÖ´ÐÐ¸Ã³ÌÊ½Ç°ÓÐÖ´ÐÐgetpcb.bat                                  È·ÈÏ%Model%pcb.txtÖÐÓÐÌí¼Ó                            
+BIOS2_NG    BIOS2³ö´í  SF00     ÕýÈ·: %BIOS2% [15;26H»úÌ¨: %BIOSHD@%                                                  È·ÈÏ%Model%pcb.txt¼Ó´í»¹ÊÇBIOS´ò´í
+::-- KBC
+BKBCPN_NG   BH¼Ü¹¹³ö´í SF00     KBC Batch¼Ü¹¹²»¶ÔÓ¦[15;26HÕýÈ·: %B_KBC_PN% ÏµÍ³: %PN@%                                ¹¤µ¥%SFCS_MO%,ÇëÕÒTEÈ·ÈÏ
+KBCHD_NG    KBC²»Æ¥Åä  SF00     MBµÄKBCÎª%KBC@%:%KBCHD@%[15;26HÐè¸üÐÂKBCÎª%FKBC%:%KBCHD%                              ÇëÕÒTEÈ·ÈÏÊÇ·ñ¿ÉÒÔ¸üÐÂ
+KBC_NG      ÉÕKBC³ö´í  BI01     KBC "%FKBC%"ÎÞ·¨ÉÕÐ´                                                                   Í¨ÖªTE·ÖÎöÔ­Òò
+NOKBCFILE   È±KBCÎÄ¼þ  SF00     KBCÎÄ¼þ¼ÐÖÐÈ±ÉÙKBCÎÄ¼þ%FKBC%                                                           Í¨ÖªTEÌí¼Ó
+KBCVER_NG   KBC°æ±¾´í  BI02     ÕýÈ·: %KBC% %KBCV%[15;26H»úÌ¨: %KBC@% %KBCV@%                                         Í¨ÖªTE·ÖÎöÔ­Òò
+::-- Autoexec
+NOMAINFILE  " È±Ö÷³ÌÊ½ SF00     ÎÞ·¨ÕÒµ½Ö÷³ÌÊ½\%Stage%                                                                 ÇëÕÒTEÌí¼Ó
+::-- Netware
+LANCHIPNG   Íø¿¨ÀàÐÍNG SF00     ÎÞ·¨È·ÈÏÍø¿¨ÀàÐÍ                                                                       ÈÏ²»µ½Íø¿¨»òÊÇLANCHIP.INIÀïÃ»ÓÐÌí¼Ó
+::-- Tool
+MODELNG     " »úÖÖ´íÎó SF00     ³ÌÊ½½öÊÊÓÃÓÚ"%Model%:%ModelID%"[15;26HÊµ¼Ê"%Model@%:%ModelID@%"                       ÊÇ·ñÓÃ´íHDD
+POSTNG      " ¿ª»ú±¨´í SF00     ¿ª»úÊ±³öÏÖ´íÎóÐÅÏ¢Èç:0188,0189,0271±»Ìø¹ý                                              ÇëÕÒTE·ÖÎö
+CHKSHELLNG  " ³ÌÊ½ÓÃ´í SF00     ¸Ã³ÌÊ½ÓÃÓÚ%NBTYPE@%,¶ø¸Ã»úÌ¨ÊÇ%NBTYPE%                                                 ÇëÕÒTEÈ·ÈÏ
+GETTIMENG   »ñµÃÊ±¼äNG SF00     Á¬Ðø%ERRORNUM%´ÎµÃµ½»úÌ¨Ê±¼ä´íÎó                                                       ÇëÕÒTE·ÖÎö    
+GETSTIMENG  ·þÎñÆ÷Ê±¼ä SF00     Á¬Ðø%ERRORNUM%´ÎµÃµ½·þÎñÆ÷Ê±¼ä´íÎó                                                     ÇëÕÒTE·ÖÎö    
+TIME_ERROR  " Ê±¼ä´íÎó CS04     »úÌ¨:%OldDate% %OldTime%[15;26H·þÎñÆ÷:%GetDate% %GetTime%                             Ê±¼äÎó²î´óÓÚ%SPEC%·ÖÖÓ,ÇëPE·ÖÎöÔ­Òò
+SETTIMENG   ÉèÊ±¼ä³ö´í SF00     µ±Ç°:%GetSdate% %GetSTime%[15;26H»úÌ¨:%GetDate% %GetTime%                             Éè³ö»õÊ±¼ä³ö´í,Ó¦Îªµ±Ç°Ê±¼ä+"%TimeSpec%"
+MBTYPENG    Ö÷°åÀàÐÍ¿Õ SF00     ÎÞ·¨µÃµ½Ö÷°åÀàÐÍÊÇUMA»òHybrid»òDiscrete                                                ÇëÕÒPE·ÖÎö
+VGATYPENG   ÏÔ¿¨ÀàÐÍ¿Õ SF00     ÎÞ·¨µÃµ½ÏÔ¿¨ÀàÐÍ                                                                       ÇëÕÒPE·ÖÎö
+AAAVARING   AAA²ÎÊý¿Õ  SF00     ´ÓAAAµÃµ½²ÎÊý%VarNull%Îª¿Õ                                                             ÇëÈ·ÈÏ%MAC8%.AAAÎÄ¼þ
+AAASERNG    SN/AAA²»·û SF00     AAAÎÄ¼þËù´øÐòÁÐºÅÓë±¾»úËù´øÐòÁÐºÅ²»·û                                                  ÇëÖØÅ×RRRÔÙ²â
+EQUITEMNG   " ÇëÌí¼ÓÁÏ SF00     ÎÞ·¨ÔÚ\CONFIG\%MODEL%_FA.TXTÖÐ[15;26HÕÒµ½%EQUITEM%ÁÏºÅ%MATERIAL%                      ÇëÕÒTEÌí¼Ó
+SAMPFIXNGY  " MBÐè³é²â SF00     ÖÎ¾ß%FIXID%²»ÊÇÓÃÓÚ³é²âµÄÖÎ¾ß                                                          Çë½«MBÒÆÖÁ³é²âÖÎ¾ß
+SAMPFIXNGN  MB²»Ðè³é²â SF00     ÖÎ¾ß%FIXID%ÊÇÓÃÓÚ³é²âµÄÖÎ¾ß                                                            Çë½«MBÒÆÖÁ²»Ðè³é²âÖÎ¾ß                     
+POWERONBTN  ¿ª»ú¼ü¿ª»ú SF00     ÇëÓÃ¿ª»ú¼ü¿ª»ú,²»ÒªÓÃNOVO¼ü»òÖØÆô                                                      ¹Ø»ú,ÓÃ¿ª»ú¼ü¿ª»ú
+ADDSPBIOS   ¼ÓSP-BIOS  SF00     ÌØÂô»úÌ¨ÐèÓÃÌØÂôBIOS[15;26HÇëÔÚ\FUNC\SPSET\SPECIAL.INIÖÐÌí¼Ó                          ÇëÕÒTEÌí¼Ó
+DELSPBIOS   É¾SP-BIOS  SF00     ²»ÊÇÌØÂô»úÌ¨²»ÐèÌØÂôBIOS[15;26HÇëÔÚ\FUNC\SPSET\SPECIAL.INIÖÐÉ¾³ý                      ÇëÕÒTEÉ¾³ý
+NOSPSALEPN  ²»ÊÇÌØÂô»ú SF00     ÌØÂô»úÌ¨SNÊÇ81,91¿ªÍ·[15;26HÇëÈ·ÈÏ¹¤µ¥%Sfcs_Mo%ÊÇÌØÂô¹¤µ¥                             ÇëÕÒTEÈ·ÈÏ
+::-- LanID
+W_LANIDNG   Ð´Íø¿¨ID´í LP02     ÎÞ·¨ÉÕÐ´Íø¿¨µØÖ·                                                                       ËÍÐÞ»¤
+W_LANFWNG   Ð´Íø¿¨FW´í LP02     ÎÞ·¨ÉÕÐ´Íø¿¨EEPROM Firmware                                                            ËÍÐÞ»¤
+LANCMP1NG   Ð´LANID´í  LP02     Ð´ÈëLANIDÓë¶Á³öLANID²»·û                                                               Ð´Èë:%MacAddr%[17;26H¶Á³ö:%LanID%
+LANCMP2NG   LANID²»·û  LP02     MBÄÚLANIDÓëËùÌùLABEL²»·û                                                               »úÌ¨MB:%LanID%[17;26H LABEL:%MacAddr%
+LANCMP3NG   LANIDË¢´í  LP02     »úÌ¨:23S%LANID%[15;26HSFCS:%SFCS_LANID%                                               ¼ì²éÌõÂëÓëMBÄÚLANIDÏàÍ¬,ÏàÍ¬»ØAOÕ¾ÖØË¢,²»Í¬»»MB
+MACHD_NG    MACÇø¼ä´í  LP02     ÕýÈ·Çø¼ä:%MAC_HD%[15;26H%RegionMin1%~%RegionMax1% %RegionMin2%~%RegionMax2%           »úÌ¨LANIDÎª%LANID%,ÕÒTEÈ·ÈÏ
+MACLAST2NG  ±È¶ÔMAC´í  LP02     ÕýÈ·:%Mac5%[15;26HÊäÈë:%MacInput%                                                     ¼ì²é»úÌ¨LANIDÓëLABELÏà·û                
+BOXLAST2NG  ±È¶ÔSSN´í  LP02     ÕýÈ·:%BOX%[15;26HÊäÈë:%BOXInput%                                                     ¼ì²é»úÌ¨LANIDÓëLABELÏà·û                
+
+CHGLANBD    " ¸ü»»Ð¡°å LP02     Ð¡°åÍø¿¨µØÖ·ÒÑ¾­¾­¹ý²âÊÔ                                                               Çë¸ü»»Ð¡°å²âÊÔ
+::-- LED
+LEDARGNG    LED²ÎÊý´í  SF00     ²ÎÊý%CLedArg%ÎÞ·¨ÔÚLED.INIÖÐÕÒµ½                                                       È·ÈÏÔÚLED.INIÌí¼Ó
+LEDKEYNG    " ÌáÇ°°´¼ü SF00     ÇëÔÚ³öÏÖ°´¼üÌáÊ¾ºóÔÙ°´                                                                 ÇëÖØ²â
+::-- NVS
+NO11S       ÎÞÖ÷°å11S  SF00     ÎÞ·¨ÔÚ\@CONTORL.INIÖ÷°å11SÐòÁÐºÅ                                                       ÇëÖØÐÂÅ×RRRµÃµ½                             
+W11SNNG     Ð´MB_11S´í SF00     Ö÷°å11SÐòÁÐºÅ:"%Sfcs_Sfcs11SN%"ÎÞ·¨Ð´ÈëEEPROM:"%MB11S@%"                               °´ÈÎÒâ¼üÖØ²â
+WRITESNNG   Ð´ÐòÁÐºÅ´í SF00     Ö÷»úÐòÁÐºÅ:"%S%"ÎÞ·¨Ð´ÈëEEPROM:"%Ser2%"                                                °´ÈÎÒâ¼üÖØ²â
+WRITEMTMNG  Ð´MTM³ö´í  SF00     MTM:"%Sfcs_MTM%"ÎÞ·¨Ð´ÈëEEPROM:"%MTM@%"                                                °´ÈÎÒâ¼üÖØ²â
+NOMTM       ÎÞMTMÐÅÏ¢  SF00     ÎÞ·¨µÃµ½MTMÐÅÏ¢                                                                        È·ÈÏAAAÖÐÓÐMTMÐÅÏ¢
+CMTMNG      " MTM³ö´í  SF00     ÕýÈ·:"%Sfcs_MTM%"  MB:"%MTM@%"                                                         ÇëÕÒTEÈ·ÈÏ
+MTMLENNG    MTM³¤¶È´í  SF00     MTMÓ¦¸ÃÊÇ7Î»»ò5Î»                                                                      ÇëÈ·ÈÏAAA»ØµÄMTMÐÅÏ¢
+WPRDNAMENG  Ð´²úÆ·Ãû´í SF00     ²úÆ·Ãû:"%ProdName%"ÎÞ·¨Ð´ÈëEEPROM:"%ProdName@%"                                        °´ÈÎÒâ¼üÖØ²â
+CPRDNAMENG  " ²úÆ·Ãû´í SF00     ÕýÈ·:"%ProdName%"  MB:"%ProdName@%"                                                    ÇëÕÒTEÈ·ÈÏ
+NOPRDNAME   " ÎÞ²úÆ·Ãû SF00     ²ÎÊý%ProdName%ÔÚ\func\nvs\serial.iniÃ»ÓÐ¶¨Òå                                           ÇëÕÒTEÈ·ÈÏ
+WLESNNG     Ð´LESN³ö´í SF00     Lenovo SN:"%LeSN%"ÎÞ·¨Ð´ÈëEEPROM:"%LeSN@%"                                             °´ÈÎÒâ¼üÖØ²â
+CLESNNG     " LESN³ö´í SF00     ÕýÈ·:"%LeSN%"  MB:"%LeSN@%"                                                            ÇëÕÒTEÈ·ÈÏ  
+LESNLENNG   LESN³¤¶È´í SF00     µÃµ½Lenovo SN³¤¶È²»¶Ô%LeSN%                                                            ÇëÈ·ÈÏÖ÷»úÐòÁÐºÅÐ´ÕýÈ·
+SMBSLENNG   SMBS³¤¶È´í SF00     SMB Ser³¤¶È²»¶Ô%SmbSer%                                                                ÇëÕÒTE·ÖÎö
+WSMBSERNG   Ð´SMBSER´í SF00     SMBSer:"%SmbSer%"ÎÞ·¨Ð´ÈëEEPROM:"%SmbSer@%"                                            ÇëÕÒTE·ÖÎö
+CSMBSERNG   " SMBSER´í SF00     ¼ì²éSMBSer:"%SmbSer%"³ö´í                                                              ÇëÕÒTE·ÖÎö
+WUUIDNG     Ð´UUID³ö´í SF00     UUID:"%UUID%"ÎÞ·¨Ð´ÈëEEPROM:"%UUID@%"                                                  °´ÈÎÒâ¼üÖØ²â
+CUUIDNG     " UUID³ö´í SF00     UUIDÎª¿Õ»ò²»·ûºÏ¹æÔò[15;26H"%UUID%"                                                   ÇëÕÒTEÈ·ÈÏ 
+NOKBID      " ÎÞ¼üÅÌID SF00     ¼üÅÌIDÎª¿Õ                                                                             È·ÈÏÊÇ·ñÓÐÐÂKBIDÐèÒª¶¨Òå
+NOEPAFLAG   EPA-FLAG¿Õ SF00     EPA FLAG²ÎÊýÎª¿Õ                                                                       È·ÈÏÊÇ·ñÓÐÐÂCPUÐèÒª¶¨Òå
+WKBIDNG     Ð´KBID³ö´í SF00     KBID:"%KBID%"ÎÞ·¨Ð´ÈëEEPROM:"%KBID@%"                                                  °´ÈÎÒâ¼üÖØ²â
+CKBIDNG     " KBID³ö´í SF00     ÕýÈ·:"%KBID%"  MB:"%KBID@%"                                                            ÇëÕÒTEÈ·ÈÏ
+WODDPWRNG   Ð´ZPWR³ö´í SF00     OddPwrFlag:"%OddPwrFlag%"ÎÞ·¨Ð´ÈëEEPROM:"%OddPwrFlag@%"                                °´ÈÎÒâ¼üÖØ²â
+CKZPWRNG    " ZPWR³ö´í SF00     ÕýÈ·:"%ZeroPwrFlag%"  MB:"%ZeroPwrFlag@%"                                              ÇëÕÒTEÈ·ÈÏ
+WEPANG      Ð´EPA³ö´í  SF00     EPA FLAG:"%EpaFlag%"ÎÞ·¨Ð´ÈëEEPROM:"%EpaFlag@%"                                        °´ÈÎÒâ¼üÖØ²â
+CEPANG      " EPA³ö´í  SF00     SFCS:"%SfcsEpaFlag%" MB:"%EpaFlag@%"                                                   ÇëÕÒTEÈ·ÈÏ
+NOIMAGEPN   ÎÞIMAGE_PN SF00     ÎÞ·¨´Ó\@CONTROL.INIÀïµÃµ½Preload Image_PN                                              ÇëÈ·ÈÏÓÐÉÏÅ×RRR                                                                       
+CHKMBDNG    MBD¶ÁÐ´´í  SF00     ÎÞ·¨¶ÁÈ¡MBDÄÚÈÝ                                                                        Çë»»MB»»BIOS               
+NOMBMODEL   ÎÞMBMODEL  SF00     MBMODELÕâ¸ö²ÎÊýÎª¿Õ                                                                    ÇëÖ´ÐÐCHECK.BATµÃµ½                                                                       
+NMBMODEL@   ÎÞMBMODEL@ SF00     MBMODEL@Õâ¸ö²ÎÊýÎª¿Õ                                                                   ÇëÖ´ÐÐ\FUNC\EQU\GETMBMDL.BATµÃµ½                                                                       
+CHKBRANDNG  " ÉÌ±êÃû´í SF00     ÊäÈëÉÌ±êÃû´íÎó                                                                         È·ÈÏBEZELÊÇ·ñÓÃ´í
+CPULOGO_NG  CPU±êÇ©´í  SF00     ÊäÈë±êÇ©%CPULOGO%Ðè·ûºÏÌõ¼þCPU:%CPUNAME%[15;26HWireless:%WLANNAME%                    ÇëÈ·ÈÏÃ»ÓÐÊä´í
+NOENERGY    ÄÜÔ´Ö®ÐÇ¿Õ SF00     ²ÎÊýSFCS_ENERGYÎª¿Õ[15;26HÈ·ÈÏAAAÎÄ¼þÓÐ´ø³ö                                           È·ÈÏ@CONTROL.INIÖÐÓÐ¼ÇÂ¼ 
+SFCSEPANG   ÄÜÔ´Ö®ÐÇ´í SF00     SFCSµÃµ½EPA FLAGÎª%SfcsEPAFlag%[15;26H¸ù¾ÝIMAGEºÍCPUÅÐ¶ÏÎª%EPAFLAG%                   ÇëÕÒTEÈ·ÈÏ
+ADDNVSTYPE  ¼ÓNVSTYPE  SF00     ÎÞ·¨µÃµ½NVSTYPEÕâ¸ö²ÎÊý                                                                ÇëÔÚ\FUNC\NVS\SERIAL.INIÖÐÌí¼Ó
+::--EQU
+ADDCPU      ÎÞCPUÐÅÏ¢  SF00     CPU²ÎÊýCPU,SPEEDÎª¿Õ[15;26HÈ·ÈÏÁÏ±íPCBA:%Model%PCB.TXT,FA:%Model%FA.TXTÖÐÓÐ¼Ó         Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐPCBA:GETPCB.BAT,FA:CHECK.BAT
+GETCPUNG    CPUÐÅÏ¢NG  SF00     ÎÞ·¨µÃµ½»úÌ¨ÄÚCPUÐÅÏ¢                                                                  ÇëÕÒPE·ÖÎö
+CPU_NG      CPU²»Æ¥Åä  EQ01     ÕýÈ·: [CPUÀàÐÍ:%CPU%  ÆµÂÊ:%SPEED%] [15;26HÏµÍ³: [%CPU@%]                             È·ÈÏCPUµÄÁÏÊÇ·ñÕýÈ·
+ADDBOMCPU   ÎÞBCPUÐÅÏ¢ SF00     BOM CPU²ÎÊýBOM_CPU,BOM_SPEEDÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó            Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECKBOM.BAT
+BOMCPU_NG   BCPU²»Æ¥Åä EQ01     ¹¤µ¥: [CPUÀàÐÍ:%CPU% ÆµÂÊ:%SPEED%][15;26H BOM: [CPUÀàÐÍ:%BOM_CPU% ÆµÂÊ:%BOM_SPEED%]   BOM CPUÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDKB       " ÎÞKBÐÅÏ¢ SF00     KEYBOARD²ÎÊýKBÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                          Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+ADDBOMKB    ÎÞBKBÐÅÏ¢  SF00     BOM KB²ÎÊýBOM_KBÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                        Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECKBOM.BAT
+BOMKB_NG    BKB²»Æ¥Åä  EQ01     ¹¤µ¥: [KBÀàÐÍ:%KB%][15;26H BOM: [KBÀàÐÍ:%BOM_KB%]                                     BOM¼üÅÌÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDDIMM     ÎÞDIMMÐÅÏ¢ SF00     DIMM²ÎÊýMEM1,2,3,4Îª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                      Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+DIMM_NG     ÄÚ´æ²»Æ¥Åä EQ02     ÕýÈ·: [%MEM1%+%MEM2%+%MEM3%+%MEM4%] [15;26HÏµÍ³: [%MEM1@%+%MEM2@%+%MEM3@%+%MEM4@%]    ÄÚ´æÌõ´óÐ¡²»Æ¥Åä,È·ÈÏÄÚ´æÌõÊÇ·ñÓÃ´í
+ADDBDIMM    " ÎÞBDIMM  SF00     BOM DIMM²ÎÊýBOM_MEM1,2,3,4Îª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó              Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECKBOM.BAT
+BDIMM_NG    BOMÄÚ´æ´í  EQ02     BOM:%BOM_MEM1%+%BOM_MEM2%+%BOM_MEM3%+%BOM_MEM4%[15;27HMO:%MEM1%+%MEM2%+%MEM3%+%MEM4%  ÄÚ´æÌõ´óÐ¡²»Æ¥Åä,È·ÈÏÄÚ´æÌõÊÇ·ñÓÃ´í
+DIMMPCB_NG  " ÄÚ´æ×°´í EQ02     ÏµÍ³ÄÚ´æ:[%MEM1@%+%MEM2@%+%MEM3@%+%MEM4@%]                                             È·ÈÏÄÚ´æÌõÓÐ²åºÃ
+ADDHDD      ÎÞHDDÐÅÏ¢  SF00     HDD²ÎÊýHDD1,HDD2,HDSPEED1,HDSPEED2Îª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó      Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+ADDRAID     ÎÞRAIDÐÅÏ¢ SF00     RAID²ÎÊýRAIDÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                            Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+RAIDHDDNG   RAIDÓ²ÅÌ´í HF08     ÕýÈ·: %RHdd1%[15;26HÏµÍ³: %Hdd1@%                                                     RAIDÄ£Ê½Îª%Raid%,ÇëÕÒTE·ÖÎö
+HDD_EQU_NG  Ó²ÅÌ²»Æ¥Åä SF00     ÕýÈ·: [HDD1:%HDD1%  HDD2:%HDD2%] [15;26HÏµÍ³: [HDD1:%HDD1@%  HDD2:%HDD2@%]            »úÌ¨HDDÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDBHDD     ÎÞBHDDÐÅÏ¢ SF00     BOM HDD²ÎÊýBom_HDD1,2,3,Bom_HDSPEED1,2,3Îª¿Õ[15;26HÈ·ÈÏ\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó    Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECKBOM.BAT
+BHDDEQU_NG  BOMÓ²ÅÌ´í  SF00     BOM: [%BOM_HDD001%+%BOM_HDD002%+%BOM_HDD003%][15;27HMO: [%HDD001%+%HDD002%+%HDD003%]  BOM HDDÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+HDDSP_NG    HDD×ªËÙNG  SF00     ÕýÈ·:[HD1:%HDSPEED1% HD2:%HDSPEED2%][15;26HÏµÍ³:[HD1:%HDSPEED1@% HD2:%HDSPEED2@%]     »úÌ¨HDD×ªËÙÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDODD      ÎÞODDÐÅÏ¢  SF00     ODD²ÎÊýODDÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                              Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOODD       ÈÏ²»µ½ODD  SF00     ÏµÍ³ÈÏ²»µ½¹âÇý                                                                         ÇëÕÒPE·ÖÎö
+CD_ROM_NG   ¹âÇý²»Æ¥Åä SF00     ÕýÈ·: [ODD:%ODD% FW:%ODDFW%] [15;26HÏµÍ³: [ODD:%ODD@% FW:%ODDFW@%]                    »úÌ¨¹âÇýÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDBODD     ÎÞBODDÐÅÏ¢ SF00     BOM ODD²ÎÊýBOM_ODDÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                      Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECKBOM.BAT
+BOMODD_NG   BODD²»Æ¥Åä SF00     BOM: [ODD:%BOM_ODD%][15;26H MO: [ODD:%ODD%]                                           BOM¹âÇýÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDWLAN     ÎÞWLANÐÅÏ¢ SF00     WLAN²ÎÊýWLANÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                            Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOWLAN      ÈÏ²»µ½WLAN SF00     ÏµÍ³ÈÏ²»µ½ÎÞÏßÍø¿¨                                                                     ÇëÕÒPE·ÖÎö
+WLANEQU_NG  WLAN²»Æ¥Åä SF00     ÕýÈ·: [WLAN:%WLAN%] [15;26HÏµÍ³: [WLAN:%WLAN@%]                                       »úÌ¨WIRELESS¿¨Óë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDBOMWLAN  " ÎÞBWLAN  SF00     BOM WLAN²ÎÊýBOM_WLANÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                    Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECKBOM.BAT
+BOMWLAN_NG  " BWLAN´í  SF00     BOM: [WLAN:%BOM_WLAN%][15;26H MO: [WLAN:%WLAN%]                                       BOM WIRELESS¿¨Óë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDBATT     ÎÞBATTÐÅÏ¢ SF00     BATT²ÎÊýBAT_CÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                           Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOBATT      ÈÏ²»µ½µç³Ø SF00     ÏµÍ³ÈÏ²»µ½µç³Ø                                                                         ÇëÕÒPE·ÖÎö
+BATTERY_NG  µç³Ø²»Æ¥Åä SF00     ÕýÈ·: [%Bat_C%Ð¾µç³Ø %BAT_V%] [15;26HÏµÍ³: [%bat_cell%Ð¾µç³Ø %BAT_V@%]                »úÌ¨ÖÐµç³ØÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+ADDLCD      ÎÞLCDÐÅÏ¢  SF00     LCD²ÎÊýRESÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                              Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOLCD       ÈÏ²»µ½LCD  SF00     ÏµÍ³ÈÏ²»µ½LCD                                                                          ÇëÕÒPE·ÖÎö
+LCD_NG      LCD²»Æ¥Åä  SF12     ÕýÈ·: [%RES% %PANEL% %SIZE%] [15;26HÏµÍ³: [%RES@% %PANEL@% %SIZE@%]                   LCDÐÍºÅ²»¶Ô,È·ÈÏÁÏÊÇ·ñÓÃ¶Ô
+ADDWWAN     ÎÞWWANÐÅÏ¢ SF00     WWAN²ÎÊýWWANÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                            Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOUSBPORT   Éè¶¨USB¿Ú  SF00     Ã»ÓÐÉè¶¨USBÉè±¸%USBARG%µÄPort                                                          ÇëÔÚ\FUNC\EQU\EQU.INIÖÐÌí¼Ó
+NOWWAN      ÈÏ²»µ½WWAN SF00     ÏµÍ³ÈÏ²»µ½WWAN                                                                         ÇëÕÒPE·ÖÎö
+WWANEQU_NG  WWAN²»Æ¥Åä SM02     ÕýÈ·: [WWAN:%WWAN%] [15;26HÏµÍ³: [WWAN:%WWAN@%]                                       ÇëÕÒPC/TEÈ·ÈÏ
+ADDCAM      ÎÞCAMÐÅÏ¢  SF00     Camera²ÎÊýCAMÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                           Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOCAM       " ÎÞÉãÏñÍ· SF00     ÏµÍ³ÈÏ²»µ½ÉãÏñÍ·                                                                       ÇëÕÒPE·ÖÎö
+CAM_EQU_NG  ÉãÏñÍ·²»·û SF00     ÕýÈ·: [ÉãÏñÍ·:%CAM%] [15;26HÏµÍ³: [ÉãÏñÍ·:%CAM@%]                                     ÉãÏñÍ·Óë¹¤µ¥²»·û,ÇëÕÒPE/TEÈ·ÈÏ
+ADDBT       " ÎÞBTÐÅÏ¢ SF00     Bluetooth²ÎÊýBTÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                         Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOBT        ÈÏ²»µ½À¶ÑÀ SF00     ÏµÍ³ÈÏ²»µ½À¶ÑÀ[15;26HÈ·ÈÏÎÞÏß¿ª¹ØÎª´ò¿ª                                               ÇëÕÒPE·ÖÎö
+BT_NG       À¶ÑÀ²»Æ¥Åä SF00     ÕýÈ·: [À¶ÑÀ:%BT%] [15;26HÏµÍ³: [À¶ÑÀ:%BT@%]                                           ÇëÕÒPC/TEÈ·ÈÏ
+ADDFP       " ÎÞFPÐÅÏ¢ SF00     Fingerprint²ÎÊýFPÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                       Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOFP        ÈÏ²»µ½Ö¸ÎÆ SF00     ÏµÍ³ÈÏ²»µ½Ö¸ÎÆÊ¶±ð                                                                     ÇëÕÒPE·ÖÎö
+FINGEQU_NG  Ö¸ÎÆ²»Æ¥Åä SF00     ÕýÈ·: [Finger:%FP%] [15;26HÏµÍ³: [Finger:%FP@%]                                       FingerÓë¹¤µ¥²»·û,ÇëÕÒPE/TEÈ·ÈÏ
+ADDSMART    SMARTÐÅÏ¢  SF00     Smart Card²ÎÊýSMARTÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó                     Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+NOSMART     " ÎÞSMART  SF00     ÏµÍ³ÈÏ²»µ½SMART CARD                                                                   ÇëÕÒPE·ÖÎö
+SMARTEQUNG  SMART²»·û  SF00     ÕýÈ·: [Smart:%Smart%] [15;26HÏµÍ³: [Smart:%Smart@%]                                   Smart CardÓë¹¤µ¥²»·û,ÇëÕÒPE/TEÈ·ÈÏ
+NOMODEL     Ìí¼Ó55ÌõÂë SF00     Ö÷°å55ÌõÂë%LB55@%ÐèÒªÌí¼Ó                                                              ÇëÕÒTEÔÚ\CONFIG\%Model%PCB.TXTÖÐÌí¼Ó
+PCI_ID_NG   PCIID´íÎó  EQ04     PCI ID: [%PCIID%] [15;26HPCI NAME: [%PCINAME%]                                        PCI ID³ö´í,Í¨ÖªTE·ÖÎöÔ­Òò
+ADDPCIITEM  ¼ÓPCIÏîÄ¿  SF00     PCI²âÊÔÏîÄ¿%PCIARG%Ã»ÓÐÔÚEQU.INIÖÐ                                                     ÇëÕÒTEÌí¼Ó                                                             
+ADDVRAM     ÎÞVRAMÐÅÏ¢ SF00     VRAM²ÎÊýVRAMÎª¿Õ[15;26HÈ·ÈÏÁÏ±í\CONFIG\%Model%FA.TXT,%MODEL%PCB.TXTÖÐÓÐ¼Ó             Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT,GETPCB.BAT
+NOVRAM      ÈÏ²»µ½ÏÔ´æ SF00     ¶Á²»µ½ÏÔ´æ´óÐ¡                                                                         ÇëÕÒTE·ÖÎö                
+VRAM_FAIL   ÏÔ´æ´óÐ¡´í DF04     ÕýÈ·: [VRAM:%VRAM%] [15;26HÏµÍ³: [VRAM:%VRAM@%]                                       ÏÔ¿¨´óÐ¡²»¶Ô,ÇëÕÒPC/TEÈ·ÈÏ
+ADDMB       " ÎÞMBÐÅÏ¢ SF00     MB²ÎÊýMBMODEL,TYPE,VGAÎª¿Õ[15;26HÈ·ÈÏ\CONFIG\%Model%FA.TXT,%MODEL%PCB.TXTÖÐÓÐ¼Ó       Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT,GETPCB.BAT
+MBMODELNG   Ö÷°å»úÖÖ´í SF00     ÕýÈ·: [MB Model:%MbModel%] [15;26HÏµÍ³: [MB Model:%MbModel@%]                         È·ÈÏMBÃ»ÓÐÓÃ´í
+MBMODEL1NG  Ö÷°å»úÖÖ´í SF00     ÕýÈ·: [MB Model:%MbModel1%] [15;26HÏµÍ³: [MB Model:%MbModel@%]                        È·ÈÏMBÃ»ÓÐÓÃ´í
+MBTYPE1NG   Ö÷°åÀàÐÍ´í SF00     ÕýÈ·: [MB Type:%Type%] [15;26HÏµÍ³: [MB Type:%MbType%]                                È·ÈÏMBÃ»ÓÐÓÃ´í
+MBVGANG     ÏÔ¿¨ÀàÐÍ´í SF00     ÕýÈ·: [VGA:%VGA%] [15;26HÏµÍ³: [VAG:%VGA@%]                                           È·ÈÏMBÃ»ÓÐÓÃ´í
+ADDBMB      ÎÞBMBÐÅÏ¢  SF00     BOM MB²ÎÊýBOM_MBMODEL,BOM_TYPE,BOM_VGAÎª¿Õ[15;26HÈ·ÈÏ\CONFIG\%Model%FA.TXTÖÐÓÐ¼Ó      Èç¹ûÒÑ¾­Ìí¼ÓÖ´ÐÐCHECK.BAT
+BMBMODELNG  BOM»úÖÖ´í  SF00     BOM: [MB Model:%Bom_MbModel%][15;26H MO: [MB Model:%MbModel%]                         BOMÖ÷°å»úÖÖÓë¹¤µ¥²»·û,ÇëÕÒPE/TEÈ·ÈÏ
+BMBTYPE1NG  BMBÀàÐÍ´í  SF00     BOM: [MB Type:%Bom_Type%][15;26H MO: [MB Type:%Type%]                                 BOMÖ÷°åÀàÐÍÓë¹¤µ¥²»·û,ÇëÕÒPE/TEÈ·ÈÏ
+BMBVGANG    BOMÏÔ¿¨´í  SF00     BOM: [VAG:%Bom_VGA%][15;26H MO: [VGA:%VGA%]                                           BOMÖ÷°åVGAÓë¹¤µ¥²»·û,ÇëÕÒPE/TEÈ·ÈÏ
+LANTYPENG   Íø¿¨ÀàÐÍ´í SF00     ÕýÈ·: [GIGA LAN:%GIGA%] [15;26HÏµÍ³: [GIGA LAN:%GIGA@%]                               È·ÈÏLANCHIPÃ»ÓÐÓÃ´í
+CARD_EQU_NG USB¿¨²»·û SF00     ÕýÈ·: [Card:%usbcard%] [15;26HÏµÍ³: [Card:%usbcard@%]                                 ÇëÕÒPC/TEÈ·ÈÏ
+::-- Update
+XXCOPYNG    " ¸üÐÂ³ö´í SF00     ¸üÐÂ³ÌÊ½Ê±³öÏÖ´íÎó                                                                     ÇëÕÒTE·ÖÎö
+::-- Aft
+AFT_NG      AFT¹¦ÄÜNG  SF18     Õð¶¯Æ÷¹¦ÄÜ²»Á¼                                                                         ËÍÐÞ»¤
+::-- 5IN1
+MS_CARD_NG  MS¿¨²âÊÔNG FC05     MS¿¨²âÊÔ³ö´í                                                                           ¸ü»»MS¿¨ÔÙ²âÊÔÏÂ
+SD_CARD_NG  SD¿¨²âÊÔNG FC02     SD¿¨²âÊÔ³ö´í                                                                           ¸ü»»SD¿¨ÔÙ²âÊÔÏÂ
+XD_CARD_NG  XD¿¨²âÊÔNG FC04     XD¿¨²âÊÔ³ö´í                                                                           ¸ü»»XD¿¨ÔÙ²âÊÔÏÂ
+::-- ESATA
+ESATA_NG    E-Sata³ö´í SF00     Õì²â²»µ½E-Sata                                                                         È·ÈÏE-sataÊÇ·ñ²åºÃ
+::-- COVER
+COVER_NG    ºÏ¸Ç²âÊÔNG SM02     Õì²âºÏ¸ÇÎÞ×÷ÓÃ                                                                         ºÏÉÏ¸Ç2Ãë,Ìýµ½ßÙßÙÉù´ò¿ª
+::-- NEWCARD
+USBEXP_NG   ÎåºÏÒ»¿¨NG SF00     USB-Express¿¨²âÊÔ³ö´í                                                                  ¸ü»»¿¨ÔÙ²âÊÔÏÂ
+PCIEXP_NG   ²âPCI¿¨NG  SF00     PCI-Express¿¨²âÊÔ³ö´í                                                                  ¸ü»»¿¨ÔÙ²âÊÔÏÂ
+::-- AUDIO
+AUDIOARGNG  ¼ÓÒôÆµÏîÄ¿ SF00     AUDIO²âÊÔÏîÄ¿Ã»ÓÐÔÚAUDIO.INIÖÐ                                                         ÇëÕÒTEÌí¼Ó                                                             
+NOAUDIOCFG  ÎÞÒôÆµÅäÖÃ SF00     ÎÞAUDIO %AUDIOARG%²âÊÔÅäÖÃµµ%AUDIOARG%.INI                                             ÇëÕÒTEÈ·ÈÏ            
+LOOP_NG     ÉùÆµ»ØÂ·NG SA04     AUDIO LOOPBACK¹¦ÄÜ²»Á¼                                                                 ¸ü»»AUDIO LOOPBACKÏßÔÙ²âÊÔÏÂ
+MIC_NG      Â¼Òô¹¦ÄÜNG SA03     Âó¿Ë·ç(Â¼Òô)¹¦ÄÜ²»Á¼                                                                   ËÍÐÞ»¤
+SPEAK_NG    ×óÓÒÉùµÀNG SF00     ×óÓÒÉùµÀ¹¦ÄÜ²»Á¼                                                                       ÕÒPE·ÖÎö»òÕßËÍÐÞ»¤
+SPDIF_NG    SPDIF²»Á¼  SPD1     SPDIF¹¦ÄÜ²»Á¼                                                                          ËÍÐÞ»¤
+::-- VIDEO
+VIDEOARGNG  ¼ÓÊÓÆµÏîÄ¿ SF00     VIDEO²âÊÔÏîÄ¿Ã»ÓÐÔÚVIDEO.INIÖÐ                                                         ÇëÕÒTEÌí¼Ó                                                             
+::-- PQAF
+PQAF_FAIL   PQAF²âÊÔNG SF00     PQAF²âÊÔ%PqafArg%³ö´í                                                                  Í¨ÖªTE/PE·ÖÎö
+PQAFARGNG   ¼ÓPQAFÏîÄ¿ SF00     Ã»ÓÐPQAF²âÊÔÎÄ¼þ%PQAFARG%.TST                                                          ÇëÕÒTEÌí¼Ó                                                             
+::-- USB
+USB_FAIL    USB¹¦ÄÜNG  US02     USB¹¦ÄÜ²»Á¼                                                                            ËÍÐÞ»¤
+USBARGNG    ¼ÓUSBÏîÄ¿  SF00     USB²âÊÔÏîÄ¿Ã»ÓÐÔÚUSBPORT.INIÖÐ                                                         ÇëÕÒTEÌí¼Ó                                                             
+::-- SLP2
+SLP2_NG     " SLP2 NG  SF00     SLP2 OA MarkerÉè¶¨³ö´í                                                                 ÇëÕÒTEÈ·ÈÏ
+ADDSLP2ARG  ¼ÓSLP2²ÎÊý SF00     SLP2.BATÓÃ·¨´íÎó[15;26HÓÃ·¨:[SLP2.BAT EN/DIS/CHK]                                     ÇëÕÒTEÐÞ¸Ä                                                             
+SETSLPENNG  ¼¤»îSLP´í  SF00     ÉèÖÃSLP2 ENABLE³ö´í                                                                    ÇëÕÒTE·ÖÎö
+SETSLPDING  ½ûÓÃSLP´í  SF00     ÉèÖÃSLP2 DISABLE³ö´í                                                                   ÇëÕÒTE·ÖÎö
+CHKSLPENNG  SLP2¼¤»îNG SF00     SLP2Ó¦¸ÃÊÇ¼¤»î×´Ì¬                                                                     ÇëÕÒTE·ÖÎö
+CHKSLPDING  SLP2½ûÓÃNG SF00     SLP2Ó¦¸ÃÊÇÊ§Ð§×´Ì¬                                                                     ÇëÕÒTE·ÖÎö
+::-- ME
+ADDMEARG    ME²ÎÊýÎª¿Õ SF00     ME²ÎÊýMEFWVER,MEFILEÎª¿Õ[15;26HÈ·ÈÏMEFW.INIÅäÖÃÕýÈ·                                   ÇëÕÒTE·ÖÎö
+UPMEFWNG    ¸üÐÂME³ö´í SF00     ¸üÐÂME FW %MEFWVER%Ê±³öÏÖ´íÎó                                                          ÇëÕÒTE·ÖÎö    
+COLDBOOTNG  ÀäÆô¶¯³ö´í SF00     ÏµÍ³ÀäÆô¶¯Ê±Ã»ÓÐÖØÆô                                                                   ÇëÕÒTE·ÖÎö        
+CHKMELKNG   " MELK´íÎó SF00     ¼ì²éME Lock×´Ì¬´íÎó                                                                    ÇëÕÒTE·ÖÎö                     
+SETMELKNG   ÉèMELK³ö´í SF00     ÉèÖÃME Lock³öÏÖ´íÎó                                                                    ÇëÕÒTE·ÖÎö           
+MEINFO_NG   ME°æ±¾´íÎó SF00     ÎÞ·¨¶ÁÈ¡MEÐÅÏ¢»ò°æ±¾²»¶Ô[15;26HÕýÈ·ME°æ±¾Îª%MEFWVer%                                  ÇëÕÒTE·ÖÎö
+CHKMEFWARG  CHKME²ÎÊý  SF00     CHKMEFW.BATÐè¼Ó²ÎÊý,MEFWµÄ°æ±¾                                                         ÇëÕÒTE
+PCHVER_NG   PCH°æ±¾´í  SF00     ÎÞ·¨¶ÁÈ¡PCHÐÅÏ¢»ò°æ±¾²»¶Ô[15;26HÕýÈ·PCH°æ±¾Îª%PCHVer%                                 ÇëÕÒTE·ÖÎö
+CHKPCHARG   CHKPCH²ÎÊý SF00     CHKPCH.BATÐè¼Ó²ÎÊý,PCHµÄ°æ±¾                                                           ÇëÕÒTE
+::-- AVFW
+UPAVFWNG    ¸üÐÂAV³ö´í SF00     ¸üÐÂAV FW %AVFW%Ê±³öÏÖ´íÎó                                                             ÇëÕÒTE·ÖÎö    
+AVINFO_NG   AV°æ±¾´íÎó SF00     ÎÞ·¨¶ÁÈ¡AVÐÅÏ¢»ò°æ±¾²»¶Ô[15;26HÕýÈ·AV°æ±¾Îª%AVFW%                                     ÇëÕÒTE·ÖÎö
+::-- CHKIMAGE
+TIMAGENG    ²âÊÔIMAGE  SF00     CÅÌ´æÔÚ²âÊÔIMAGE                                                                       ÇëÖØ×öPRELOAD
+PLDNFINISH  " PRLDÒì³£ SF00     PRELOADÃ»ÓÐ×öÍê                                                                        ÇëÖØ×öPRELOAD
+PLDSTATENG  STATE²»¶Ô  SF00     STATE.INIÖÐ×´Ì¬²»¶Ô,ÏµÍ³½ø¹ýWINDOWS                                                    ÇëÖØ×öPRELOAD                        
+::-- MODS
+VGA_FAIL    ÏÔ¿¨²âÊÔNG DF04     ÏÔ¿¨²âÊÔNG [15;26HNG CODE:%VGAERR%                                                    ÇëÕÒPE·ÖÎö
+NOMODSROM   ÎÞMODSÎÄ¼þ SF00     ÎÞÏÔ¿¨MODS²âÊÔROM[15;26H%MODSPATH%\%MODSROM%                                          È·ÈÏMODS.INIÅäÖÃOK
+::-- RTCREG
+RTCREGNG    " RTCREG´í SF00     ¼ì²éRTC REGÖµ´íÎó                                                                      ÇëÕÒTE·ÖÎö
+::-- Load
+ADDMODEL    " Ìí¼Ó»úÖÖ SF00     ÎÞ·¨µÃµ½»úÖÖÃû[15;26HÇëÔÚ\TOOL\MODEL.INIÖÐÌí¼Ó                                        ÇëÕÒTEÌí¼Ó
+PRLDTYPENG  ¼ÓPRLDÀàÐÍ SF00     ÎÞ·¨µÃµ½Preload·½Ê½[15;26HÇëÔÚ\TOOL\MODEL.INIÖÐÌí¼Ó                                   ÇëÕÒTEÌí¼Ó
+NOSERVLINE  ÎÞÏß±ðÀàÐÍ SF00     ÎÞ·¨ÖªµÀ·þÎñÆ÷ÊôÓÚÄÄÌõÏß[15;26HÇëÔÚM:\LINE\LINE.BATÖÐÌí¼Ó                             ÇëÕÒTEÌí¼Ó
+NOMAINSERV  ÎÞÖ÷·þÎñÆ÷ SF00     ÎÞ·¨ÖªµÀ%CHKLINE%ÏßµÄÖ÷·þÎñÆ÷[15;26HÇëÔÚ\NTNET\PRLDSERV.INIÖÐÌí¼Ó                     ÇëÕÒTEÌí¼Ó
+NOMAINSERV  PRLD·þÎñÆ÷ SF00     ÎÞ·¨ÖªµÀ%CHKLINE%ÏßµÄPRELOAD·þÎñÆ÷[15;26HÇëÔÚ\NTNET\PRLDSERV.INIÖÐÌí¼Ó                ÇëÕÒTEÌí¼Ó
+NOAOD       " Ìí¼ÓAOD  SF00     ·þÎñÆ÷ÉÏÃ»ÓÐZ:\%Partno@%\%AodName%                                                     ÇëÕÒTEÌí¼Ó
+ADDAODPN    P/RÌí¼ÓAOD SF00     P/R»úÆ÷ÐèÒªÔÚIPGPLD.TXTÌí¼ÓAOD                                                         ÇëÕÒTEÌí¼Ó
+::-- Other
+1394_NG     1394¹¦ÄÜNG IE01     1394¹¦ÄÜ²âÊÔNG                                                                         »»1394ÏßÖØ²â(Ë«»÷'9'ÇÐ»»Îª1394·þÎñÆ÷)
+1394ID_NG   1394ID´íÎó SF00     1394 ID´íÎó                                                                            »ØÁ÷PCBAÖØÐÂ²âÊÔ
+16KEY_NG    16¼ü²âÊÔNG KF01     ¼üÅÌ²âÊÔNG                                                                             ËÍÐÞ»¤
+2nd_FAN_NG  ·çÉÈ²âÊÔNG SF00     Ð¡·çÉÈ²âÊÔ³ö´í                                                                         È·ÈÏÊÇ·ñ´øÐ¡·çÉÈ
+AC_DC_NG    ³ä·ÅµçNG   CV03     ³ä·Åµç²âÊÔ³ö´í                                                                         ËÍÐÞ»¤
+AV_FW_NG    AV·ÖÎ»NG   SF00     AV Panel·ÖÎ»°æ±¾²»¶Ô                                                                   ËÍÐÞ»¤»»AV Panel
+AVP_NG      " AVP´íÎó  SF00     ÕýÈ·: [AVP:%AVP% ] [15;26HÏµÍ³: [AVP:%AVP@% ]                                         EZ-Key·ÖÎ»°æ±¾´íÎó ,ÇëÕÒTEÈ·ÈÏ
+BASS_SW_NG  µÍÒô¿ª¹ØNG SF00     µÍÒôÅÚ¿ª¹ØÎÞ×÷ÓÃ                                                                       ËÍÐÞ»¤
+BATCH_NG    ¹¤µ¥ºÅ´íÎó SF00     ÕýÈ·: [¹¤µ¥:%BatchMo%  ¼Ü¹¹:%BatchPN%] [15;26HÏµÍ³: [¹¤µ¥:%Mo%  ¼Ü¹¹:%PN%]            BIOSÅÜBATCH¹¤µ¥Óë¼Ü¹¹²»·û,ÇëÕÒPC/TEÈ·ÈÏ
+BRAND_NG    ÉÌ±êÃûÐ´´í SF00     ²úÆ·ID»òÉÌ±êÃû×Ö²»¶Ô                                                                   Í¨ÖªTE·ÖÎö
+BRIGHT_NG   ²âÃ÷°µ¶ÈNG AD06     LCDÃ÷°µ¶ÈÒì³£,ÇëÈ·ÈÏADTÊÇ·ñ²åÉÏ                                                        È·ÈÏNGÇëËÍÐÞ»¤
+BT_FUNC_NG  À¶ÑÀ¹¦ÄÜNG WF04     À¶ÑÀ¹¦ÄÜ²»Á¼                                                                           È·ÈÏÀ¶ÑÀÊÇ·ñ´ò¿ª
+ALLLED_NG   LEDµÆÒì³£  SF00     LEDµÆ²»Õý³£µãÁÁ                                                                           ËÍÐÞ»¤
+BT_LED_NG   À¶ÑÀµÆÒì³£ LA14     À¶ÑÀµÆ²»Õý³£                                                                           ËÍÐÞ»¤
+BUTTON_NG   " °´¼ü²»Á¼ TF08     °´¼ü¹¦ÄÜ²»Á¼                                                                           ËÍÐÞ»¤
+CAMERA_NG   ÉãÏñ¹¦ÄÜNG SF00     ÉãÏñÍ·¹¦ÄÜ²»Á¼                                                                         ËÍÐÞ»¤
+CIR_NG      Ò£¿Ø¹¦ÄÜNG FI02     Ò£¿ØÆ÷ÎÞ×÷ÓÃ                                                                           ¸ü»»Ò£¿ØÆ÷ÔÙ²âÊÔÏÂ
+CF_CARD_NG  CF¿¨²âÊÔNG FC01     CF¿¨²âÊÔ³ö´í                                                                           ¸ü»»CF¿¨ÔÙ²âÊÔÏÂ
+CFG_NG      ²úÆ·IDÐ´´í SF00     Ð´²úÆ·ID³ö´í                                                                           ËÍÐÞ»¤
+CLEAR_NG    ÇåRFID³ö´í SF00     ÇåRFID³ö´í                                                                             ËÍÐÞ»¤
+CMOS_NG     CMOSÖµÒì³£ CS02     CMOSÖÐµÄÖµ³ö´íÁË                                                                       Í¨ÖªTE·ÖÎöÔ­Òò
+COLOR_FAIL  " ÏÔÊ¾Òì³£ AD02     LCDÑÕÉ«ÏÔÊ¾Òì³£                                                                        ËÍÐÞ»¤
+DETECT_NG   Î´ÈÏµ½WLAN WF01     WIRELESS¿¨Õì²â²»µ½                                                                     ËÍÐÞ»¤
+EJECT_NG    CD°´¼ü²»Á¼ CR08     ¹âÇýµ¯³öCDÆ¬µÄ°´¼ü¹¦ÄÜ²»Á¼                                                             »»¸ö¹âÇýÊÔÒ»ÊÔ
+EZKEY_NG    ¹¦ÄÜ¼ü²»Á¼ FK15     ¹¦ÄÜ¼ü-ÎÞ×÷ÓÃ - [%button%]                                                             ÇÃ¿Õ¸ñÖØ²â»òËÍÐÞ»¤
+FAN_ERROR   ·çÉÈ²âÊÔNG FF01     ·çÉÈ²âÊÔ³ö´í                                                                           È·ÈÏ·çÉÈÊÇ·ñÄÜ×ª¶¯
+FINGER_NG   Ö¸ÎÆ²âÊÔNG KF06     Ö¸ÎÆ²âÊÔ´íÎó                                                                           ÖØÐÂ²âÊÔÏÂ,NGËÍÐÞ»¤
+NOFINGER    ÎÞÖ¸ÎÆÊ¶±ð KF06     ÎÞ·¨Õì²âÖ¸ÎÆÊ¶±ð                                                                       ÇëÈ·ÈÏÖ¸ÎÆÊÇ·ñ×°ºÃ
+FLASH_NG    " Ð´ÌõÂëNG SF00     Ð´MB/»úÌ¨ÌõÐÎÂë³ö´í                                                                    ËÍÐÞ»¤
+FUNCKEY_NG  ¹¦ÄÜ¼ü²»Á¼ FK15     ¹¦ÄÜ¼üÎÞ×÷ÓÃ                                                                           ËÍÐÞ»¤
+GIGALAN_NG  50Ã×ÍøÏßNG SF00     50Ã×/5Ã×ÍøÏß²âÊÔNG                                                                     »»¸ùÍøÏßÖØ²â,ÔÙNGËÍÐÞ»¤
+HDD_NG      HDD¶ÁÐ´NG  HF08     HDD¶ÁÐ´²âÊÔ´íÎó                                                                        ¸ü»»HDD²âÊÔÏÂ»òËÍÐÞ»¤
+IBMCARD_NG  ²âIBM¿¨NG  FC01     IBM¿¨²âÊÔ³ö´í                                                                          ¸ü»»IBM¿¨ÔÙ²âÊÔÏÂ
+IR_ERROR    ºìÍâ¶Ô´«NG FI01     ºìÍâ¶Ô´«²âÊÔ³ö´í                                                                       È·ÈÏPDAÉèÖÃÊÇ·ñÕýÈ·
+KBC_VER_NG  KBC°æ±¾´í  FW03     KBC°æ±¾²»¶Ô                                                                            Í¨ÖªTE·ÖÎö
+KB_FAIL     ¼üÅÌ²âÊÔNG KF01     ¼üÅÌ²âÊÔNG                                                                             ËÍÐÞ»¤
+KBEQU_NG    ¼üÅÌ²»Æ¥Åä SF00     »úÌ¨¼üÅÌÓë¹¤µ¥²»·û                                                                     ÇëÕÒPC/TEÈ·ÈÏ
+LANID_NG    LANID²»·û  LP05     ÍøÂçIDÖµÓë¾í±ê²»·û                                                                     ÖØÐÂË¢LANIDÌõÐÎÂë
+LAN_NG      Ð´Íø¿¨IDNG LP02     ÎÞ·¨ÉÕÐ´ÍøÂçID                                                                         ËÍÐÞ»¤
+LAUNCH_NG   LanchBD NG KF05     LAUNCH BOARD²âÊÔNG                                                                     ËÍÐÞ»¤
+LCDCRT_NG   CRTÇÐ»»NG  AD12     LCD/CRTÇÐ»»Òì³£                                                                        È·ÈÏCRT½Ó¿ÚÊÇ·ñ²åÉÏ
+LOW_CAP     µç³ØµçÁ¿µÍ BF01     µç³ØµçÁ¿µÍ                                                                             Çë²åÉÏADT³äµç
+MB_NG       " Ö÷°å²»·û SF00     »úÌ¨Ö÷°åÓë¹¤µ¥²»·û                                                                     ÇëÕÒPC/TEÈ·ÈÏ
+MEFWUP_NG   ¶ÁME·ÖÎ»´í SF00     ME F/W¶ÁÐ´´íÎó                                                                         ÖØÆôÔÙ²âÊÔ,NGËÍÐÞ»¤
+MEDISUL_NG  ½ûÓÃMEÊ§°Ü SF00     ME ÎÞ·¨ Disable                                                                        ÍêÈ«¶Ïµç8ÃëÔÙ²âÊÔ
+MEENLK_NG   ÆôÓÃMEÊ§°Ü SF00     ME ÎÞ·¨ Enable                                                                         ÍêÈ«¶Ïµç8ÃëÔÙ²âÊÔ
+MEINFO_NG   ME°æ±¾´íÎó SF00     ÎÞ·¨¶ÁÈ¡MEÐÅÏ¢»ò°æ±¾²»¶Ô                                                               Í¨ÖªTE
+METEST_NG   AMT²âÊÔNG  SF00     AMT²âÊÔÊ§°Ü                                                                            ÇëÈ·ÈÏwireless¿¨»òÄÏ±±ÇÅÏßÂ·
+MEBLK_NG    MEÇø¿é³ö´í SF00     ME BlockÓÐÎÊÌâ                                                                         Í¨ÖªTE/PE·ÖÎö
+MODEM_NG    ²¦ºÅ²âÊÔNG MD01     MODEM²âÊÔ³ö´í                                                                          È·ÈÏMODEMÏßÁ¬½ÓOK
+NEWCARD_NG  ²âNEW¿¨NG  FC06     NEW¿¨²âÊÔ³ö´í                                                                          ¸ü»»NEW¿¨ÔÙ²âÊÔÏÂ
+NO_DISPLAY  " TVÎÞ»­Ãæ TV01     TVÎÞ»­Ãæ                                                                               »»TV½Ó¿ÚÔÙ²âÊÔÏÂ
+ODD_NG      DVD¶ÁÈ¡NG  CR14     DVDËæ»ú¶ÁÈ¡²âÊÔ³ö´í                                                                    »»¸ö¹âÇýÊÔÒ»ÊÔ
+PRELOAD_NG  ³ö»õÏµÍ³´í RN02     ³ö»õµÄ²Ù×÷ÏµÍ³°æ±¾´íÎó                                                                 Í¨ÖªTE
+P_PORT_NG   ²¢¿Ú²âÊÔNG DK08     ²¢¿Ú²âÊÔNG                                                                             È·ÈÏ²¢¿ÚÊÇ·ñ½ÓÉÏ
+REFLASH_NG  ÉÕKBC³ö´í  FW05     KBCÉÕÐ´³ö´í                                                                            Í¨ÖªTE·ÖÎö
+ROBSON_NG   ROBSON¿¨NG SF00     »úÌ¨ROBSON¿¨Óë¹¤µ¥²»·û                                                                 ÇëÕÒPC/TEÈ·ÈÏ
+RTC_FAIL    Ã»CMOSµç³Ø BF06     Õì²â²»µ½CMOSÐ¡µç³Ø                                                                     È·ÈÏÐ¡µç³ØÊÇ·ñ²åºÃ
+S3_FAIL     " Ë¯Ãß²»ÐÑ SM07     Ë¯Ãß²»ÐÑ                                                                               È·ÈÏADTÁ¬½ÓOK
+SM_CARD_NG  SM¿¨²âÊÔNG FC03     SM¿¨²âÊÔ³ö´í                                                                           ¸ü»»SM¿¨ÔÙ²âÊÔÏÂ
+S_PORT_NG   ´®¿Ú²âÊÔNG DK09     ´®¿Ú²âÊÔNG                                                                             È·ÈÏ´®¿ÚÊÇ·ñ½ÓÉÏ
+S_VIDEO_NG  S¶Ë×Ó²»Á¼  SV01     S-VIDEOÏÔÊ¾Òì³£                                                                        ËÍÐÞ»¤
+TCPA_NG     TCPA¹¦ÄÜNG SF14     TCPA¹¦ÄÜ²»Á¼                                                                           ÖØÐÂ»ØÁ÷PCBA»òËÍÐÞ»¤
+TP_FAIL     TP¹¦ÄÜ²»Á¼ TF07     Touch Pad(´¥Ãþ°å/»¬Êó)¹¦ÄÜ²»Á¼                                                         ËÍÐÞ»¤
+TPM_NG      " TPM³ö´í  SF00     TPM¶ÁÈ¡/´´½¨EK keyÊ§°Ü                                                                 ÖØÆôºóÔÙ²âÊÔ,NGËÍÐÞ»¤
+TPM_W_NG    " TPM³ö´í  SF00     TCPAÐ´ÈëEK keyÊ§°Ü                                                                     ÖØÆôºóÔÙ²âÊÔ,NGËÍÐÞ»¤
+TURBLED_NG  TURBOµÆNG  LA01     TURBO LEDµÆ²»Õý³£µãÁÁ                                                                  ËÍÐÞ»¤
+TVTUNER_NG  µçÊÓ¿¨²»Á¼ SF00     TV TUNERÕì²â²»µ½                                                                       ÇëÈ·ÈÏÊÇ·ñ²åºÃ
+USB3_FW_NG  USB3·ÖÎ»NG US02     USB3¹¦ÄÜ²»Á¼                                                                           ËÍÐÞ»¤
+UUID_NG     " UUID´íÎó SF00     UUID ´íÎó,ÐèÒªÖØÐ´UUID                                                                 ´ÓWÕ¾»ØÁ÷
+VGA_SW_NG   VGAÇÐ»»NG  SM02     VGA¿ª¹ØÎÞ×÷ÓÃ                                                                          ËÍÐÞ»¤
+WLANLED_NG  WLANµÆÒì³£ LA13     WIRELESS LEDµÆ²»Õý³£                                                                   ËÍÐÞ»¤
+WLAN_NG     WLAN¹¦ÄÜNG WF02     WIRELESS¹¦ÄÜ²»Á¼                                                                       ËÍÐÞ»¤
+WL_SW_NG    WLAN¿ª¹ØNG SM02     Wireless¿ª¹ØÎÞ×÷ÓÃ                                                                     ËÍÐÞ»¤
+WUSB_NG     Î´ÈÏµ½WUSB SF00     WUSBÕì²â²»µ½                                                                           ÇëÈ·ÈÏÊÇ·ñ²åºÃ
+VRAM_NG     VRAM²âÊÔNG DF04     VRAM²âÊÔ³ö´í                                                                           ÖØÆôºóÔÙ²âÊÔ,NGËÍÐÞ»¤
+NO_LASSO    Î´ÈÏµ½LASO XXXX     LASSOÃ»ÓÐÈÏµ½,ÇëÈ·ÈÏÁ¬ÏßÊÇ·ñ½ÓºÃ.                                                      ÖØÆôºóÔÙ²âÊÔ,NGËÍÐÞ»¤
+LX1FAN_NG   LX1·çÉÈNG  XXXX     LX1·çÉÈ²»×ª,ÇëÕÒPEÈ·ÈÏ.                                                                ÖØÆôºóÔÙ²âÊÔ,NGËÍÐÞ»¤
+BATSER_NG   µç³ØÐòºÅ´í XXXX     µç³ØÐòÁÐºÅ´íÎó,ÇëÕÒPEÈ·ÈÏ.                                                             ÖØÆôºóÔÙ²âÊÔ,NGËÍÐÞ»¤
+NO_BIOSFILE È±BIOSÎÄ¼þ BI02     BIOSÎÄ¼þ²»´æÔÚ                                                                         ÇëÍ¨ÖªTE
+NO_KBCFILE  È±KBCÎÄ¼þ  FW03     KBCÎÄ¼þ²»´æÔÚ                                                                          ÇëÍ¨ÖªTE
+NO_MEFILE   " È±MEÎÄ¼þ SF00     MEÎÄ¼þ²»´æÔÚ                                                                           ÇëÍ¨ÖªTE
+WLSID_NG    WLSID´íÎó  SF00     ÎÞÏßÍø¿¨ID¶ÁÈ¡´íÎó                                                                     ÇëÈ·ÈÏ¿¨ÎÞÏßÍø¿¨ÊÇ·ñ²åºÃ
+ASSET_NG    " ²Æ±à´íÎó SF00     ÕýÈ·: [SFCS:%AssetNum%] [15;26HÏµÍ³: [»úÌ¨:%AssetNum@%]                               ÇëÍ¨ÖªTE
+WASSET_NG   Ð´²Æ±à³ö´í SF00     Ð´²Æ±àÊ±³öÏÖ´íÎó                                                                       ÇëÍ¨ÖªTE
+BLDDATE_NG  ÖÆÔìÈÕÆÚ´í SF00     Ã»ÓÐÐ´ÈëÖÆÔìÈÕÆÚ                                                                       Çë´Ó¹àHDDÕ¾»ØÁ÷
+WBDATE_NG   ÖÆÔìÈÕÆÚ´í SF00     Ð´ÈëÖÆÔìÈÕÆÚÊ±³ö´í                                                                     ÇëÍ¨ÖªTE
+SETDIS_NG   ¸ÄCMOS³ö´í SF00     ¸ü¸ÄCMOS VGAÎªDiscreteÄ£Ê½³ö´í                                                         ÇëÕÒTE·ÖÎö
+VGAMODE_NG  ÏÔ¿¨Ä£Ê½´í SF00     Ó¦µ±¸Ä³ÉDiscreteÄ£Ê½                                                                   °´»Ø³µ¼üÖØÐÂÉèÖÃ
+MIC_P_NG    Micp²»Æ¥Åä EQ08     ÕýÈ·:[TOUCH:%TOUCH%] [17;28HÏµÍ³:[TOUCH:%TOUCH@%]                                     »úÌ¨LCD_PanelÓë¹¤µ¥²»·û,ÇëÕÒPC/TEÈ·ÈÏ  
+HDD_FW_NG   HDD_FW²»¶Ô HD00     HDD FW´íÎó                                                                             ÇëÕÒTE·ÖÎö
+11SNG       "11SÌõÂëNG SF00     11SÌõÂë´íÎó,Çë¼ì²éLANID,11SºÍ55ÌõÂëÊÇ·ñÆ¥Åä.                                           ÈçÈ·ÈÏÆ¥Åä,ÇëÕÒTEÈ·ÈÏ.
+MBSN_NG      "11SÌõÂëNG SF00     11SÌõÂë´íÎó,Çë¼ì²éMB11SÊÇ·ñÓëSFCSÆ¥Åä.                                                 ÈçÈ·ÈÏÆ¥Åä,ÔÙÕÒTEÈ·ÈÏ.
+TP_EQU_NG   Pad²»Æ¥Åä  KF06     ÕýÈ·: [´¥¿ØÃæ°å:%TP%] [17;28HÏµÍ³: [´¥¿ØÃæ°å:%TP@%]                                   ÖØÐÂ²âÊÔÏÂ,NGËÍÐÞ»¤
+UAO3_NG     USBÑÕÉ«NG  SF00     USBÑÕÉ«´íÎó                                                                            ÇëÈ·ÈÏÊÇ·ñÓÃ´íÁÏ
+PRLD_NG     "  HOLD    SF00     ´Ë¼Ü¹¹ÔøOffSpec Preload,ÐèÈ·ÈÏ.                                                        ÇëÕÒTEÈ·ÈÏ.
+NAMEPL_NG   " ÉÌ±êÌù´í SF00     Name plateÓÃ´í,ÇëÎð¶¯.                                                                 ÕÒÄãÃÇ×é³¤»òTEÈ·ÈÏÊÇ·ñÓÃ´í.
+BATINIT_NG  ³õÊ¼»¯µç³Ø SF00     ³õÊ¼»¯µç³ØµÚÒ»´ÎÊ¹ÓÃÊ±¼ä³ö´í                                                           ÕÒTEÈ·ÈÏ
+CPUTESTNG   CPU²âÊÔNG  SF00     CPU²âÊÔ³ö´í         
+VGATESTNG   VGA²âÊÔNG  SF00     VGA²âÊÔ³ö´í         
+MEMTESTNG   MEM²âÊÔNG  SF00     DIMM²âÊÔ³ö´í         
+DSTHDDNG    HDD²âÊÔNG  SF00     HDD²âÊÔ³ö´í         
+DSTTSTNG    HDD²âÊÔNG  SF00     HDD²âÊÔ³ö´í         

@@ -1,0 +1,973 @@
+// KE Forth Script File For Dos  V0.00              Modify Date: 2011/10/11
+// KE Forth Script File For Dos  V0.01              Modify Date: 2011/10/18
+// KE Forth Script File For Dos  V0.02              Modify Date: 2011/10/20
+   //add #aps_led_on, #aps_led_off
+// KE Forth Script File For Dos  V0.03              Modify Date: 2011/10/21
+   //exchange #aps_led_on, #aps_led_off
+// KE Forth Script File For Dos  V0.04              Modify Date: 2011/10/21
+   //add  #KB_led_on, #KB_led_off
+// KE Forth Script File For Dos  V0.05              Modify Date: 2011/10/26
+   //change method #aps_led_on, #aps_led_off, #HDMI, #idisplay_detect 
+// KE Forth Script File For Dos  V0.06              Modify Date: 2011/10/28
+   //change method  #idisplay_switch 
+// KE Forth Script File For Dos  V0.07              Modify Date: 2011/11/04
+   //add #WLS_SW_ON, #WLS_SW_ON, #WLS_SW?
+// KE Forth Script File For Dos  V0.08              Modify Date: 2011/11/04
+   //fix #WLS_SW_ON, #WLS_SW_ON
+// KE Forth Script File For Dos  V0.09              Modify Date: 2011/11/17
+   //add #K29_bat_cell, #K49_bat_cell
+// KE Forth Script File For Dos  V0.10              Modify Date: 2011/11/17
+   //fix #Mute_btn
+// KE Forth Script File For Dos  V0.11              Modify Date: 2011/11/18
+   //fix #bat_cell
+// KE Forth Script File For Dos  V0.12              Modify Date: 2011/11/18
+   //change method #mute_btn
+// KE Forth Script File For Dos  V0.13              Modify Date: 2011/12/09
+   //add #RTC_IN?
+// KE Forth Script File For Dos  V0.14              Modify Date: 2011/12/28
+   //Fix #RTC_IN?
+// KE Forth Script File For Dos  V0.15              Modify Date: 2012/01/31
+   //Change #KB_led_on/#kb_led_off
+// KE Forth Script File For Dos  V0.16              Modify Date: 2012/01/31
+   //Fix #Bat_cell
+// KE Forth Script File For Dos  V0.17              Modify Date: 2012/01/31
+   //change #aps_led_on, #aps_led_off
+// KE Forth Script File For Dos  V0.18              Modify Date: 2012/03/20
+   //change #16key_on, #16key_off
+// KE Forth Script File For Dos  V0.19              Modify Date: 2012/03/27
+   //Fix #Bat_cell
+// KE Forth Script File For Dos  V0.20              Modify Date: 2012/04/06
+   //Change #KE?
+// KE Forth Script File For Dos  V0.21              Modify Date: 2012/04/10
+   //Change #KE?
+// -----------------------------------------------------------------------------
+  Usage functions
+  [Configuration Checking]
+  MB_ID?
+  KB_id?
+
+  [BIOS]
+  Model_id   // [--AL]
+  Model?     // [--00] KE [--FF] Unknown Model
+  KE?
+
+  [Display]
+  Crt_Only
+  Lcd_Only
+  HDMI
+  Read_brightness
+  Write_brightness
+
+  [Switch]
+  Lid_close?   //[--01] Open [--00] Close
+  WLS_SW?      //[--01] Enable [--00] Disable
+
+  [LED]
+  Pwr_led_on
+  Pwr_led_off
+  AC_led_on
+  AC_led_off
+
+  [AC/DC]
+  AD_in?       //[--01] AC in  [--00] AC out
+  AD_ON
+  AD_OFF
+
+  [Battery]
+  BAT_IN?      // [-- 00]not exist   [-- 01]exist
+  BAT_Capacity
+  BAT_Voltage
+  BAT_Current
+  BAT_Temper
+  BAT_Device   //DeviceName
+  BAT_cell     // [--00]3 cell [--01]6 cell
+  Bat_Type     // [-- 00]LION   [-- 01]Not LION
+  BAT_vendor   // ManufactureName
+  BAT_serial   // serialNumber
+  charge_on
+  charge_off
+
+  [Micro-Processor]
+  KBC_ver?
+
+  [Lanuch Key]    // [-- 00]pass   [-- 01]fail
+  Mute_btn
+  NOVO_btn
+
+  [Bluetooth]
+  BT_ON
+  BT_OFF
+
+  [Wireless]
+  RF_ON
+  RF_OFF
+  WWan_ON
+  WWan_OFF
+
+  [Heat Sink]
+  CPUth
+  SYSth
+  DDRth
+  VGAth
+  Fan1_on
+  Fan1_off
+  Fan1_Speed
+
+  [INT15]
+  BIOS_Default    //[--00]Successful [--01]Error
+
+  [R/W CMOS]
+  Write_CMOS_bank1 //[Reg Data -- y/n]
+  Read_CMOS_bank1  //[Reg -- Data]
+  Write_CMOS_bank2 //[Reg Data -- y/n]
+  Read_CMOS_bank2  //[Reg -- Data]
+
+  [Misc]
+
+//------------------------------------------------------*/
+#autoexec
+  GetREGS
+  ##nearcall_assembler
+;
+// êUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêU?INT86, INT86X Registers êUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêUêU
+#iAL iregs 00 + PEEK ; #iAH iregs 01 + PEEK ; #iBL iregs 02 + PEEK ; #iBH iregs 03 + PEEK ;
+#iCL iregs 04 + PEEK ; #iCH iregs 05 + PEEK ; #iDL iregs 06 + PEEK ; #iDH iregs 07 + PEEK ;
+#iAX iregs 00 + PEEKW ; #iBX iregs 02 + PEEKW ; #iCX iregs 04 + PEEKW ; #iDX iregs 06 + PEEKW ;
+#iSI iregs 08 + PEEKW ; #iDI iregs $A + PEEKW ;
+#oAL oregs 00 + PEEK ; #oAH oregs 01 + PEEK ; #oBL oregs 02 + PEEK ; #oBH oregs 03 + PEEK ;
+#oCL oregs 04 + PEEK ; #oCH oregs 05 + PEEK ; #oDL oregs 06 + PEEK ; #oDH oregs 07 + PEEK ;
+#oAX oregs 00 + PEEKW ; #oBX oregs 02 + PEEKW ; #oCX oregs 04 + PEEKW ; #oDX oregs 06 + PEEKW ;
+#oSI oregs 08 + PEEKW ; #oDI oregs $A + PEEKW ;
+#CY oregs $C + PEEK ; #FL oregs $E + PEEKW ;
+#ES sregs 00 + PEEKW ; #CS sregs 02 + PEEKW ; #SS sregs 04 + PEEKW ; #DS sregs 06 + PEEKW ;
+#iAL! iregs 00 + SWAP POKE ; #iAH! iregs 01 + SWAP POKE ;
+#iBL! iregs 02 + SWAP POKE ; #iBH! iregs 03 + SWAP POKE ;
+#iCL! iregs 04 + SWAP POKE ; #iCH! iregs 05 + SWAP POKE ;
+#iDL! iregs 06 + SWAP POKE ; #iDH! iregs 07 + SWAP POKE ;
+#iSI! iregs 08 + SWAP POKEW ; #iDI! iregs $A + SWAP POKEW ;
+#iAX! iregs 00 + SWAP POKEW ; #iBX! iregs 02 + SWAP POKEW ;
+#iCX! iregs 04 + SWAP POKEW ; #iDX! iregs 06 + SWAP POKEW ;
+#ES! sregs 00 + SWAP POKEW ; #CS! sregs 02 + SWAP POKEW ;
+#SS! sregs 04 + SWAP POKEW ; #DS! sregs 06 + SWAP POKEW ;
+  ~~~~~~~~~~ B-COMMA Assembler commands ~~~~~~~~~~~~~~~~~~~~~~~~~
+  #&b,segment b,here 04 + ; [ -- n ]
+  #&b,offset  b,here 02 + ; [ -- n ]
+  #b,segment! ##&b,segment swap pokew ;
+  #b,offset!  ##&b,offset  swap pokew ;
+  #b,segment  ##&b,segment peekw ;
+  #b,offset   ##&b,offset  peekw ;
+  #b,here@    b,here peekw ;
+  #b,here!    b,here swap pokew ;
+* #b,setup    0 ##b,here! ##b,offset! ##b,segment! ;   // [ seg offset -- ] initialize b, binary code compiler
+* #near_code_entry ##b,offset ##b,here@ + pokew ; [ addr -- ] // stores b,here@ to the given deferred word entry point
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~ Near call Assembler buffer ~~~~~~~~~~~~~~~~~~~~~~~~
+_CLASSID2VIDDID_CODE  xx
+
+                    
+#GetVidDidFromClass //[ [SubCode  PI ]  [ 00    ClassCode] -- VID DID ]
+                    //   bit7~4  3~0     bit7~4   3~0
+   sfind _CLASSID2VIDDID_CODE peekw nearcall ;
+
+
+  ~~~~~~~~~~~~  Assembler Code  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#nearcall_assembler
+ ##CS code_buffer ##b,setup
+ sfind _CLASSID2VIDDID_CODE ##near_code_entry   //Only in real mode ,use ##DS is enough
+ $55 b,                       // push bp
+ $8B b, $EC b,                // mov  bp,sp
+ $8B b, $5E b, $04 b,         // mov  bx,[bp+4]  // TOS ( [bp+4] nearcall , [bp+6] farcall ) 
+ $53 b,                       // PUSH BX 
+ $66 b, $8B b, $4F b, $FE b,  // MOV  ECX,[BX-02]
+ $B8 b, $03 b, $B1 b,         // MOV  AX,B103
+ $BE b, $00 b, $00 b,         // MOV  SI,0
+ $CD b, $1A b,                // INT  1A
+ $72 b, $1B b,                // JC   @+1Bh
+ $66 b, $33 b, $C0 b,         // XOR  EAX,EAX
+ $8B b, $C3 b,                // MOV  AX,BX
+ $66 b, $C1 b, $E0 b, $08 b,  // SHL  EAX,08
+ $66 b, $0D b, $00 b,
+ $00 b, $00 b, $80 b,         // OR   EAX,80000000
+ $BA b, $F8 b, $0C b,         // MOV  DX,0CF8
+ $66 b, $EF b,                // OUT  DX,EAX
+ $BA b, $FC b, $0C b,         // MOV  DX,0CFC
+ $66 b, $ED b,                // IN   EAX,DX
+ $EB b, $05 b,                // JMP  @+5
+ $66 b, $33 b, $C0 b,         // XOR  EAX,EAX
+ $66 b, $48 b,                // DEC  EAX
+ $5B b,                       // POP  BX
+ $66 b, $89 b, $47 b, $FE b,  // MOV  [BX-02],EAX
+ $5D b,                       // pop  bp
+ $C3 b,                       // RET
+
+;
+
+//------------------------------------------------------
+//Configuration Checking
+  #MB_ID?
+    $12 ##Read_ECRAM ." Board Ver. --> "
+    DUP $00 == IF ." SA" CR
+    ELSE DUP $01 == IF ." SB" CR
+      ELSE DUP $02 == IF ." SC" CR
+        ELSE DUP $03 == IF ." SD" CR
+          ELSE DUP $04 == IF ." -1" CR
+            ELSE DUP $05 == IF ." -2" CR
+              ELSE DUP $06 == IF ." -3" CR
+                ELSE DUP $07 == IF ." -4" CR
+                  ELSE ." unknow" CR
+                  ENDIF
+                ENDIF
+              ENDIF
+            ENDIF
+          ENDIF
+        ENDIF
+      ENDIF
+    ENDIF ;
+
+  #KB_ID?   //Keyboard ID  [ -- ID]
+    $71 ##Read_ECRAM $30 & $10 /
+    DUP $01 == IF ." Japan "
+    ELSE DUP $02 == IF ." Europe "
+      ELSE DUP $03 == IF ." English "
+       ELSE ." unknow "
+        ENDIF
+      ENDIF
+    ENDIF ." keyboard" CR ;
+
+  #RTC_IN?
+    ." RTC " 
+    ##PCH_GPIO_BASE $0D + I $10 &
+    IF ." OUT! " 01 ELSE ." IN!" 00 ENDIF CR ;
+//------------------------------------------------------
+//BIOS
+  #Model_ID    // [-- ID_HighWord ID_LowWord]
+    $9604 ##iAX! $F700 ##iBX! $15 INT86X
+    ##CY IF ." Model ID Read Fail " CR ENDIF
+    ##oCX ##oDX ##oDX ##oCX ." SET MODEL_ID=" .$ .$ CR ;
+
+  #Model?             // [--00]KE [--FF]unknow
+    ##Model_id
+    $3041 != IF DROP ." This is not KE." $FF  
+    ELSE $4C56 != IF ." This is not KE." $FF  
+         ELSE
+              ." This is KE." 00
+         ENDIF
+    ENDIF CR 
+    ##KE?
+    ;
+
+  #KE? // [--00] K12 [--01] K14 [--02] E14 [--03] E49 UMA [--04] E49 Optimus 
+    $7C ##Read_ECRAM ." This is " 07 &
+    DUP $00 == IF ." K12." 00 CR
+    ELSE DUP $01 == IF ." K14." 01 CR
+      ELSE DUP $02 == IF ." E14." 02 CR
+        ELSE DUP  $03 == IF ." E49 N-1 "  
+              $7C ##Read_ECRAM $80 &
+	      IF ." Optimus" 04 CR
+	      ELSE ." UMA" 03 CR
+	      ENDIF
+	  ELSE DUP  $04 == IF ." E49 WW " $FF CR 
+                  $7C ##Read_ECRAM $80 &
+	          IF ." Optimus" 04 CR
+	          ELSE ." UMA" 03 CR
+	          ENDIF
+	      ELSE $05 == IF ." Unknow " $FF CR
+		   ENDIF	
+	      ENDIF	
+	  ENDIF
+        ENDIF
+      ENDIF
+    ENDIF ;
+
+//------------------------------------------------------
+//Keyboard
+  #16key_on
+   $08 $01 ##Write_ECRAM
+   $00 $5D ##Write_ECRAM ;
+
+  #16key_off
+   $08 $00 ##Write_ECRAM
+   $00 $5D ##Write_ECRAM ;
+
+
+//------------------------------------------------------
+//Display
+  #Device_Find // [Dev_ID Ven_ID -- ??]  00:Successful 01:Error
+    $B102 ##iAX! 00 ##iSI! ##iDX! ##iCX! $1A int86 ##CY ##oAH |
+    IF 01 ELSE 00 ENDIF ;
+
+  #VGA?
+    $0000 $0003 ##GetVidDidFromClass
+    DROP DUP $8086 == if ." Intel" DROP 04  
+      else DUP $10DE == if ." nVidia" DROP 03 
+        else DUP $1002 == if ." ATi" DROP 02
+          else $1022 == if ." ATi" 02 
+	    else ." Unknown" $FF endif
+	  endif
+	endif
+      endif    
+    CR ;
+
+  #iLCD_Only   $800 ##iDisplay_switch ;
+  #iLcd_Only2  $008 ##iDisplay_switch ;
+  #iCRT_Only   $100 ##iDisplay_switch ;
+  #iCRT_Only2  $001 ##iDisplay_switch ;
+  #iLCD_CRT    $900 ##iDisplay_switch ;
+  #iHDMI       $400 ##iDisplay_switch ;
+  #iHDMI2      $004 ##iDisplay_switch ;
+
+  #iCrt_Only_F
+    $0100 ##iDisplay_Switch_F ;
+
+  #iDisplay_Switch  // [switch -- ??] 00:Successful 01:Error
+    ##iDisplay_Detect IF DROP 01 RET ENDIF
+    ##iCX! $0 ##iBX! $5F64 ##iAX! $10 INT86
+    //##oAX $5F ==
+    ##CY
+    IF ." Switch pass !" CR 00 RET ENDIF ." switch fail !" CR 01 ;
+
+  #iDisplay_Switch_F  // [switch -- ??] 00:Successful 01:Error
+    ##iCX! $0 ##iBX! $5F64 ##iAX! $10 INT86
+    ##oAX $5F ==
+    IF ." Switch pass !" CR 00 RET ENDIF ." switch fail !" CR 01 ;
+
+  #iDisplay_Detect  // [--00]Successful [--01]Error
+    DUP DUP $5F64 ##iAX! $0200 ##iBX! $10 INT86
+    ##oAX $005F != IF ." Detect fail !! " CR DROP DROP 01 RET ENDIF
+    ##oCH & == IF 00 RET ENDIF ." device not detected! " CR 01 ;
+
+  #aDisplay_Switch  // [ switch -- ] bit0:LCD, bit1:CRT, bit2:TV, bit3:DFP1,bit4:N/A ,bit5:CRT2,bit6:DV bit7:DFP2
+     ##aDisplay_Detect if dropall 01 ret endif
+     ##iCL! $01 ##iBH! $A084 ##iAX! $10 int86
+     ." Switch pass !" CR dropall 00 ;
+
+  #aDisplay_Detect  // [ switch -- ] bit0:CRT, bit1:TV, bit2:LCD, bit3:DFP1,bit4:N/A ,bit5:CRT2,bit6:DV bit7:DFP2
+     $090F ##iCX! $A083 ##iAX! $10 int86   //detection
+     dup dup $00 ##iBH! $A084 ##iAX! $10 int86
+     ##oBH & == if 00 RET endif ." Detect fail !! " 01 CR ;
+
+  #aLCD_only       $01 ##aDisplay_Switch ;
+  #aCRT_only       $02 ##aDisplay_Switch ;
+  #aLCD_CRT        $03 ##aDisplay_Switch ;
+  #aHDMI           $08 ##aDisplay_switch ;
+
+  #aSetBright
+    $A082 ##iAX! $0105 ##iBX! ##iCL! $10 int86 ;
+
+  #aGetBright
+    $A082 ##iAX! $0005 ##iBX! ##iCL! $10 int86 
+    ##oCL ;
+
+  #Read_Brightness
+  ##VGA?
+   DUP $03 == IF ##aGetBright DUP .$ CR RET ENDIF
+   ."  Can't get brightness." CR ;
+
+//  #Read_Bright_step
+//    $83 ##Read_ECRAM ;
+
+  #Brightness_Up
+    ##Read_Bright_Step DUP
+      ##AD_IN? IF $0F & $0F < IF
+                 $01 + $83 SWAP ##Write_ECRAM 00
+                 ELSE ." Brightness MAX" 01 CR ENDIF
+               ELSE $F0 & $F0 < IF
+                 $10 + $83 SWAP ##Write_ECRAM 00
+                 ELSE ." Brightness MAX" 01 CR ENDIF
+               ENDIF ;
+
+  #Brightness_DOWN
+    ##Read_Bright_Step DUP
+      ##AD_IN? IF $0F & $00 > IF
+                 $01 - $83 SWAP ##Write_ECRAM 00
+                 ELSE ." Brightness MIN" 01 CR ENDIF
+               ELSE $F0 & $00 > IF
+                 $10 - $83 SWAP ##Write_ECRAM 00
+                 ELSE ." Brightness MIN" 01 CR ENDIF
+               ENDIF ;
+
+  #Brightness_Max
+    $FF ##aSetBright ;
+
+  #Brightness_Min
+    $00 ##aSetBright ;
+
+  #Brightness_Default
+    $81 ##Read_ECRAM $83 SWAP ##Write_ECRAM ;
+
+  #Crt_Only
+   ##VGA?
+   DUP $03 == IF DROP ##nCrt_Only RET ENDIF
+       $04 == IF ##iCrt_Only2 RET ENDIF
+   ."  Can't set brightness." CR ;
+   ;
+
+  #LCD_Only
+   ##VGA?
+   DUP $03 == IF DROP ##nLCD_Only RET ENDIF
+       $04 == IF ##iLCD_Only2 RET ENDIF
+   ."  Can't set brightness." CR ;
+   ;
+
+  #LCD_CRT
+   ##VGA?
+   DUP $03 == IF ##aLCD_CRT RET ENDIF
+       $04 == IF ##iLCD_CRT RET ENDIF
+   ."  Can't switch display." CR ;
+
+  #HDMI
+   ##VGA?
+   DUP $03 == IF DROP ##nHDMI RET ENDIF
+       $04 == IF ##iHDMI2     RET ENDIF
+   ."  Can't switch display." ;
+
+
+  #iLCD_In?
+    ##PCH_GPIO_BASE $0D + I $04 &
+    IF ." Detect Pass!" 01 ELSE ." Detect fail !! " 00 ENDIF CR ;
+
+  #LCD_In?    //[--01]in  [--00]out
+    ##iLCD_In? ;
+
+//------------------------------------------------------
+//Switch
+  #SwBitLid   $02 ;
+  
+  #Lid_close?    // [-- 00]closed  [-- 01]opened
+    ." LID "
+    $70 ##Read_ECRAM ##SwBitLid &
+    IF ." opened " CR 01 ELSE ." closed " CR 00 ENDIF ;
+
+  #WLS_SW?      //[--01] Enable [--00] Disable
+    $52 ##Read_ECRAM $80 & ." Wireless Switch "
+    IF ." Enable" 01 ELSE ." Disable" 00 ENDIF CR ;
+
+  #WLS_SW_ON
+    $52 ##Read_ECRAM $80 |
+    $52 SWAP ##Write_ECRAM ;
+
+  #WLS_SW_OFF
+    $52 ##Read_ECRAM $7F &
+    $52 SWAP ##Write_ECRAM ;
+ 
+//------------------------------------------------------
+//LED
+  #LedBitKB        $10 $C0 ;   // bit 0: KB
+  #LedBitCharge    $04 $0B ;   // bit 0: Charge
+  #LedBitChargeB   $08 $0B ;   // bit 1: Charge Blink
+  #LedBitPwr       $10 $0B ;   // bit 4: Power
+  #LedBitPwrB      $20 $0B ;   // bit 5: Power Blink
+  #LedBitBatLow    $40 $0B ;   // bit 0: BatLow
+  #LedBitBatLowB   $80 $0B ;   // bit 1: BatLow Blink
+  #LedBitRF        $02 $71 ;   // bit 0: BatLow
+  #LedBitAPS       $01 $C1 ;   // bit 0: BatLow
+
+  #LedTest  // [bolk on_off --]  on:$01  off:$00
+    $08 SWAP ##Write_ECRAM $00 SWAP ##Write_ECRAM ;
+  #LedTestOn
+    $0B $01 ##LedTest ;
+  #LedTestOff
+    $0B $00 ##LedTest ;
+  #OnLed
+    DUP ##Read_ECRAM 02 PICK | ##Write_ECRAM ;
+  #OffLed
+    DUP ##Read_ECRAM 02 PICK ~ & ##Write_ECRAM ;
+  #SetLed  // [LedCtrlBit Block on/off  --]
+    IF ##OnLed ELSE ##OffLed ENDIF ;
+
+
+  #KB_led_on
+    ##LedBitKB 01 ##SetLed ;
+
+  #KB_led_off
+    ##LedBitKB 00 ##SetLed ;
+
+  #Pwr_led_on
+    ##LedBitPwr 01 ##SetLed ;
+
+  #Pwr_led_off
+    ##LedBitPwr 00 ##SetLed ;
+
+  #Charge_led_on
+    ##LedBitCharge  01 ##SetLed ;
+
+  #Charge_led_off
+    ##LedBitCharge  00 ##SetLed ;
+
+  #BatLow_led_on
+    ##LedBitBatLow  01 ##SetLed ;
+
+  #BatLow_led_off
+    ##LedBitBatLow  00 ##SetLed ;
+
+  #RF_led_on
+    ##LedBitRF  01 ##SetLed ;
+
+  #RF_led_off
+    ##LedBitRF  00 ##SetLed ;
+
+  #APS_LED_ON
+    ##PCH_GPIO_BASE $0E + DUP I $7F & O ;
+
+  #APS_LED_OFF
+    ##PCH_GPIO_BASE $0E + DUP I $80 | O ;
+
+  #All_led_on
+    ##ledteston
+    $0B $11 ##write_ecram
+    ##charge_led_on
+    ##batlow_led_on
+    ##wls_sw_on
+    ##aps_led_on
+    ##kb_led_on
+    ;
+
+  #All_led_off
+    ##ledteston
+    $0B $00 ##write_ecram
+    ;
+
+//------------------------------------------------------
+//AC/DC
+  #AdBitAcIn $20 ;
+
+  #AD_IN?    // [-- 01]Attached  [-- 00]Detached
+    $70 ##Read_ECRAM
+    ##AdBitAcIn & IF ." Attached " CR 01 ELSE ." Detached " CR 00 ENDIF ;
+
+  #SA_ON  $81 ;
+  #SA_OFF $80 ;
+
+  #SwitchAD
+    $08 SWAP ##Write_ECRAM
+    $00 $E9  ##Write_ECRAM
+    ;
+
+  #AD_ON
+    ." AD_ON " ##SA_ON ##SwitchAD ;
+
+  #AD_OFF
+    ." AD_OFF " ##SA_OFF ##SwitchAD ;
+
+//------------------------------------------------------
+//Battery
+
+  #BAT_IN?   // [-- 00]not exist   [-- 01]exist
+    $88 ##Read_ECRAM
+    $01 & IF ." BAT_IN" CR 01 ELSE ." BAT_OUT" CR 00 ENDIF ;
+
+  #BA_Capacity $E4 ;
+  #BA_Current  $EC ;
+  #BA_Voltage  $E8 ;
+  #BA_Temper   $EE ;
+
+  #BAT_GetVal
+    $02 $00 ##Write_ECRAM
+    DUP ##Read_ECRAM SWAP 01 + ##Read_ECRAM
+    $100 * + ;
+
+  #BAT_Capacity
+    ##BA_Capacity ##BAT_GetVal
+    DUP ." set capacity=" . CR ;
+
+  #BAT_Current
+    ##BA_Current ##BAT_GetVal
+    ." set current="
+    DUP $8000 & IF . CR 01
+    ELSE DUP    IF . CR 00
+      ELSE DROP ." 0" CR 02
+      ENDIF
+    ENDIF ;
+
+  #BAT_Voltage
+    ##BA_Voltage ##BAT_GetVal
+    010 / DUP 0100 / DUP
+    ." set voltage=" . ." ." 0100 * - . 00 CR ;
+
+  #BAT_Temper
+    ##BA_Temper ##BAT_GetVal
+    02730 - 010 /
+    DUP ." set temperature=" . CR ;
+
+  #BAT_Device  //DeviceName
+    $02 $03 ##Write_ECRAM
+    $E0 016 ##ReadEcString
+    016 ##ShowStackStr ;
+
+  #Batt_cell   //[--00]4cell  [--01]6cell  [--02]8cell [--FF]No Battery
+    DUP $00 == IF ." No Battery" $FF
+    ELSE
+      DUP 04400 < IF ." 4" 00
+      ELSE DUP 06280 < IF ." 6" 01     
+	   ELSE ." 8" 02
+	   ENDIF	
+      ENDIF
+    ENDIF CR ;
+
+  #bat_cell
+    ." SET bat_cell="
+    $02 $01 ##Write_ECRAM
+    $E0 ##Read_ECRAM $E1 ##Read_ECRAM $100 * +
+    ##Batt_cell ;
+
+  #Bat_Type  // "LION" ==> 4C 49 4f 4e
+    $02 $04 ##Write_ECRAM
+    $E0 04 ##ReadEcString
+    $4E == IF
+      $4F == IF
+        $49 == IF
+          $4c == IF ."This is LION" 00
+          ELSE ." This is not LION" 01 ENDIF
+        ELSE ." This is not LION" DROP 01 ENDIF
+      ELSE ." This is not LION" DROP DROP 01 ENDIF
+    ELSE ." This is not LION" DROP DROP DROP 01 ENDIF
+    CR ;
+
+  #BAT_vendor  // ManufactureName
+    $02 $02 ##Write_ECRAM
+    $E0 010 ##ReadEcString
+    010 ##ShowStackStr ;
+
+  #DisACPIevents
+    $10 ##Read_ECRAM $FE &
+    $10 SWAP ##Write_ECRAM
+    ;
+
+  #EnACPIevents
+    $10 ##Read_ECRAM $01 |
+    $10 SWAP ##Write_ECRAM
+    ;
+
+  #charge_on
+    $08 $81 ##Write_ECRAM
+    $00 $E7 ##Write_ECRAM
+    $74 ##Read_ECRAM $10 &
+    IF ." Fail" CR ELSE ." Successful " ENDIF
+    CR ;
+
+  #charge_off
+    $08 $80 ##Write_ECRAM
+    $00 $E7 ##Write_ECRAM
+    $74 ##Read_ECRAM $10 &
+    IF ." Successful " CR ELSE ." Fail" CR ENDIF ;
+
+  #UpdateCheck
+    ##AD_IN? IF
+        $88 ##Read_ECRAM ." main   "
+        $01 & IF ." IN" CR 01 ELSE ." OUT" CR 00 ENDIF
+        IF
+        ##BA_Capacity ##BAT1 ##BAT_GetVal
+        DUP 020 >=  IF DROP ." BIOS Updating ..." 01
+        ELSE ." Battery capacity=" . ." %, it's under 20%" 00 ENDIF
+      ELSE 00 ENDIF
+    ELSE 00 ENDIF
+    ;
+
+//------------------------------------------------------
+//Micro-Processor
+  #KBC_VER?
+    $F8 05 ##ReadEcString
+    05 ##ShowStackStr ;
+
+//------------------------------------------------------
+//Bluetooth
+  #WD_BT   $02 ; //bit1
+  #WD_Lan  $01 ; //bit0
+  #WD_Wan  $04 ; //bit2
+
+  #WlsDevOn       //[Dev--]
+    $52 DUP ##Read_ECRAM 02 PICK | ##Write_ECRAM ;
+  #WlsDevOff
+    $52 DUP ##Read_ECRAM 02 PICK ~ & ##Write_ECRAM ;
+
+  #BT_IN?
+    ##PCH_GPIO_BASE $3A + I $01 &
+    ." Bluetooth "
+    IF ." in" 01 ELSE ." out" 00 ENDIF
+        CR ;
+  #BT_ON    ##WD_BT ##WlsDevOn ;
+  #BT_OFF   ##WD_BT ##WlsDevOff ;
+
+//------------------------------------------------------
+//Wireless(802.11)
+  #RF_ON    ##WD_Lan ##WlsDevOn ;
+  #RF_OFF   ##WD_Lan ##WlsDevOff ;
+
+  #WWan_ON  ##WD_Wan ##WlsDevOn ;
+  #WWan_OFF ##WD_Wan ##WlsDevOff ;
+
+//----------
+// Hotkey Change
+  #hotkeychg_on
+     $10 $51 DUP ##Read_ECRAM 02 PICK | ##Write_ECRAM ;
+  #hotkeychg_off
+     $10 $51 DUP ##Read_ECRAM 02 PICK ~ & ##Write_ECRAM ;
+//------------------------------------------------------
+//Heat Sink
+  #VGAther  $AB ;
+  #CPUther  $A8 ;
+  #SYSther  $AA ;
+  #DDRther  $A9 ;
+//#GetThermal    // [sensor -- thermal]
+//  $9611 ##iAX! $002B ##iBX! $20 ##iCL! ##iCH! $15 INT86
+//  ##CY IF ." Get thermal fail" 00 CR ELSE ##oDL ENDIF ;
+
+  #CPUth
+    ##CPUther ##Read_ECRAM ." set CPUth=". CR ;
+
+  #DDRth
+    ##DDRther ##Read_ECRAM ." set DDRth=". CR ;
+
+  #SYSth
+    ##SYSther ##Read_ECRAM ." set SYSth=". CR ;
+
+  #VGAth
+    ##VGAther ##Read_ECRAM ." set VGAth=". CR ;
+
+  #Fan1_on
+    $93 DUP ##Read_ECRAM $10 | ##Write_ECRAM
+    $94 $00 ##Write_ECRAM ;
+
+  #Fan1_off
+    $93 DUP ##Read_ECRAM $10 | ##Write_ECRAM
+    $94 $FF ##Write_ECRAM ;
+
+  #Fan1_speed
+        $95 ##Read_ECRAM
+        DUP 0255 ==
+        IF DROP ." set Fan1Speed=0" CR
+        ELSE 032768 SWAP / 015 * DUP ." set Fan1Speed=" . CR
+        ENDIF ;
+
+//------------------------------------------------------
+//INT15
+  #BIOS_Default     //[--00]Successful [--01]Error
+    $9610 ##iAX! $0014 ##iBX! $15 INT86
+    ##CY IF 01 ELSE 00 ENDIF ;
+  #Switch_cpu_high  //[--00]Successful [--01]Error
+    $9610 ##iAX! $30 ##iBL! $01 ##iBH! $15 INT86
+    ##CY IF 01 ELSE 00 ENDIF ;
+  #Switch_cpu_low   //[--00]Successful [--01]Error
+    $9610 ##iAX! $30 ##iBL! $00 ##iBH! $15 INT86
+    ##CY IF 01 ELSE 00 ENDIF ;
+  #get_cpu_speed    //[--FF]Fail [--FE]not SpeedStep [--01]High [--00]Low
+    $9610 ##iAX! $30 ##iBL! $02 ##iBH! $15 INT86
+    ##CY IF ." Fail " $FF
+    ELSE
+      ##oAL ##oAH $FE == IF DROP ." not SpeedStep CPU " $FE
+      ELSE DUP 01 == IF ." Speed High "
+        ELSE DUP 00 == IF ." Speed Low "
+          ELSE ." unKnow speed "
+          ENDIF
+        ENDIF
+      ENDIF
+    ENDIF CR ;
+
+//------------------------------------------------------
+// R/W CMOS
+  #CMOS_Bank1 $71 $70 ;  //$70 -> reg  $71 -> data
+  #CMOS_Bank2 $73 $72 ;  //$72 -> reg  $73 -> data
+
+  #R_CMOS
+    02 PICK O I ;
+  #W_CMOS  // MUST write reg first, then can write data
+    02 PICK SWAP 03 PICK O O ;
+  #W_CMOS1  // [Reg Data -- ]
+    ##CMOS_Bank1 ##W_CMOS ;
+  #W_CMOS2  // [Reg Data -- ]
+    ##CMOS_Bank2 ##W_CMOS ;
+
+  #Write_CMOS_bank1 // [Reg Data -- y/n]
+    OVER OVER ##W_CMOS1 SWAP ##Read_CMOS_bank1
+    != IF ." Write CMOS bank 1 fail" CR 00 ELSE 01 ENDIF ;
+  #Read_CMOS_bank1  // [Reg -- Data]
+    ##CMOS_Bank1 ##R_CMOS ;
+  #Write_CMOS_bank2 // [Reg Data -- y/n]
+    OVER OVER ##W_CMOS2 SWAP ##Read_CMOS_bank2
+    != IF ." Write CMOS bank 2 fail" CR 00 ELSE 01 ENDIF ;
+  #Read_CMOS_bank2  // [Reg -- Data]
+    ##CMOS_Bank2 ##R_CMOS ;
+//------------------------------------------------------
+//Dock-IN? // [-- 01]Detach   [-- 00]Attached
+  #DOCK_IN?
+    $70 ##Read_ECRAM $04 & ." Dock "
+    IF ." Attached " 00
+    ELSE ." Detached " 01
+    ENDIF CR ;
+
+
+//  ---------- ICH10 GPIO ------------------------------------------
+  #PCH_GPIO_BASE  $49 ##RLPC $100 *
+                   $48 ##RLPC | $FFFE & ; [-- addr]
+  #RLPC     $0 $1F $0 ##PCI_READ_CFG_BYTE ;  [reg -- data] //D31,F0
+  #WLPC     $0 $1F $0 ##PCI_WRITE_CFG_BYTE ; [reg data --]
+
+  #RNB          $0 $02 $0 ##PCI_READ_CFG_BYTE ;  [reg -- data] //read from NorthBridge
+  #WNB          $0 $02 $0 ##PCI_WRITE_CFG_BYTE ; [reg -- data]
+
+  #PM_IO_BASE  $41 ##RLPC << << << << << << << <<
+               $40 ##RLPC | $FFFE & ; [-- addr]
+
+//  -------------------- PCI --------------------------------------------
+
+  #PCI_READ_BYTE // [reg dev_id ven_id index -- data]
+    ##PCI_FIND
+    IF ." PCI Device Can't Be Found " RET ENDIF
+    ##PCI_READ_CFG_BYTE ;
+  #PCI_WRITE_BYTE // [reg data dev_id ven_id index --]
+    ##PCI_FIND
+    IF ." PCI Device Can't Be Found " RET ENDIF
+    ##PCI_WRITE_CFG_BYTE ;
+  #PCI_FIND // [Dev_ID Ven_ID Index -- bus device func]
+    $B102 ##iAX! ##iSI! ##iDX! ##iCX! $1A INT86 ##CY
+    IF ##oAH 01 RET ENDIF
+    ##oBH ##oBL >> >> >> ##oBL 07 & 00 ;
+  #PCI_INFO // [Dev_ID Ven_ID -- bus device func]
+    $B102 ##iAX! ##iDX! ##iCX! 00 ##iSI! $1A INT86 ##CY
+    IF ##oAH DUP .$ 01 RET ENDIF
+    CR
+    ." Device ID "       ##oCX .$ CR
+    ." Vendor ID "       ##oDX .$ CR
+    ." Bus numbery"      ##oBH DUP .$ CR
+    ." Device numbery"   ##oBL >> >> >> DUP .$ CR
+    ." Function numbery" ##oBL 07 & DUP .$ CR 00 ;
+  #PCI_TEST // [Dev_ID Ven_ID -- pass/fail]
+    $B102 ##iAX! ##iDX! ##iCX! 00 ##iSI! $1A INT86 ##CY
+    IF 01 ELSE 00 ENDIF ;
+  #PCI_READ_CFG_BYTE // [reg bus device func -- data]
+    $B108 ##iAX! SWAP << << << | ##iBL! ##iBH! ##iDI! $1A INT86
+    ##CY IF ." PCI error!! " ENDIF ##oCL ;
+  #PCI_WRITE_CFG_BYTE // [reg data bus device func --]
+    $B10B ##iAX! SWAP << << << | ##iBL! ##iBH! ##iCL! ##iDI! $1A INT86
+    ##CY IF ." PCI error!! " ENDIF ;
+  #PCI_BIOS_PRESENT // [-- f]
+    01 $B101 ##iAX! $1A INT86 ##CY ?exit ##oDX $4350 == not ?exit ##oAH ?exit
+    ." OK" CR DROP ;
+
+//  ---------- EC access ----------------------------------------
+  #DISKBCINT  // [ -- ]
+    $21 DUP I 02 | O ;
+
+  #ENKBCINT   // [ -- ]
+    $21 DUP I 02 ~ & O ;
+
+  #ECWaitIBE  // [ -- ]
+    DO $68 I DROP $6C I 02 & IF LOOP ENDIF ;
+
+  #ECWaitOBF  // [-- data]
+    DO $6C I 01 & IF $68 I RET ENDIF LOOP ;
+
+  #Read_ECRAM        // [Index --]
+    ##DisKBCint
+    ##ecWaitIBE
+        $6C $80 O   ##ecWaitIBE
+        $68 SWAP O  ##ecWaitOBF
+        ##EnKBCint ;
+
+  #Write_ECRAM        // [Index Data --]
+    ##DisKBCint
+    ##ecWaitIBE
+    $6C $81 O    ##ecWaitIBE
+    $68 OVER2 O  ##ecWaitIBE
+    $68 SWAP O   ##ecWaitIBE
+    DROP ##EnKBCint ;
+
+  #ShowStackStr    // [Length -- ]
+    PUTENV StrBuff=0123456789abcdef   //get a 16 bytes buffer
+    GETENV StrBuff SWAP
+    OVER OVER + 00 POKE      //write \0 to end of string
+    DO DUP 0 <= ?BREAK 01 - OVER OVER + 03 PICK POKE LOOP
+    DROP *S
+    PUTENV StrBuff= ;
+
+  #ReadEcString    // [offset Length -- ]
+    DO DUP 0 <= ?BREAK 01 - SWAP DUP ##Read_ECRAM SWAP 01 + 02 PICK LOOP
+    DROP DROP ;
+
+  #DisACPIevents
+    $10 ##Read_ECRAM $FE &
+    $10 SWAP ##Write_ECRAM
+    ;
+
+  #EnACPIevents
+    $10 ##Read_ECRAM $01 |
+    $10 SWAP ##Write_ECRAM
+    ;
+
+//------------------------------------------------------
+//Lanuch Key   Do NOT test on windows
+  #GetBottom  // [ -- ]
+    putenv BOTTOM=001234
+    &tos 02 + putenv BOTTOM=. ;
+
+  #StackSize  // [ -- StackSize ]
+    &tos %BOTTOM - 02 / 01 + ;
+
+  #read_code
+    DO $60 i $3ff ##io_delay1 $64 i 01 & IF LOOP ENDIF
+    ;
+
+  #IO_DELAY1
+    DO $ED 00 o DUP 00 == IF DROP RET ENDIF 01 - LOOP ;
+
+  #scan_code  // [ -- makecode1 makecode2 breakcode1 breakcode2 ]
+    $1000 ##io_delay1
+    ##DisKBCint
+    DO $64 i 01 & IF ##read_code break ENDIF LOOP
+    ##EnKBCint ;
+
+  #scan_code1  // [Timeout -- makecode1 makecode2 breakcode1 breakcode2 ]
+    $1000 ##io_delay1
+    ##DisKBCint
+    DO $64 i 01 & IF  ##read_code break
+                      ELSE $09 wait ." ." 01 - dup 00 == if break endif
+                      ENDIF
+        LOOP
+    ##EnKBCint ;
+
+  #BtnTest
+    ##getbottom ##scan_code
+    DUP $9C == IF DROP ##scan_code ENDIF		// 9C means 'enter'
+    ##stacksize 02 != IF ." Stack size fail " 01 CR RET ENDIF
+    02 PICK != IF DROP DROP ." Scan code fail " 01 CR RET ENDIF
+    != IF ." Scan code Fail " 01 CR RET ENDIF
+    ." Pass "  00 CR ;
+
+  #BtnTest_EC
+    ." Test --Please press this button "
+    020 Do over2 over2 ##BtnTest_EC_cmp 00 != if
+                ." Pass" drop 00 break
+           else ." ." 01 - dup 00 == if drop ." Fail" 01 break endif
+          endif
+        Loop CR swap drop swap drop ;
+
+  #BtnTest_EC_cmp
+      03 Do over2 over2 dup 02 pick
+            ##Read_Ecram & ==
+                if break
+              else $03 wait 01 - dup 00 ==
+                         if break endif
+             endif
+         Loop swap drop swap drop ;
+
+  #BtnTestEc1   // clear before test
+    OVER $00 ##Write_ECRAM ##BtnTest_Ec ;
+
+
+  #BtnNOVOcode     $70 $10 ." NOVO Button " ;
+
+  #NOVO_btn
+   ##BtnNOVOCode ##Btntest_EC ;
+
+  #Mute_btn  
+   $E0 $20 ##BtnTest ;
+
+  #APS_btn //GPIO 35
+   ." APS Button Test" CR
+   $10 DO DUP 00 == IF ." Fail" CR BREAK
+   ELSE  $F00 ##io_delay1 ." ."
+        ##PCH_GPIO_BASE $38 + I $08 &
+        IF ." OK" CR RET
+        ENDIF
+   ENDIF  01 - LOOP 
+   ;

@@ -1,0 +1,10 @@
+    path=%drv%\;%drv%\tool
+    set model=LPS
+    set modelid=4C563041
+    set line=BTO
+    set partno=4TK01
+    set f=%drv%\tool\f52 %drv%\tool\KE.F21
+    set IgnoreNG=!
+    set SetLog=1
+    set SendNG=0
+    set Language=

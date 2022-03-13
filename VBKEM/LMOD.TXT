@@ -1,0 +1,401 @@
+------------------------------------------------------------------------
+LMOD	Filter Utility		   Ver 1.3	(c) 2002 Horst Schaeffer
+------------------------------------------------------------------------
+
+"LMOD" stands for "line modification" or "list modification".
+
+    LMOD is a DOS filter (STDIN/STDOUT). If you are not familiar with
+    DOS input/output redirection, pls. read FILTER.TXT.
+
+LMOD extracts data from an input source (STDIN): from redirected DOS
+screen output, for example, or from any file. The extracted information
+is inserted into a given text or command string, and sent to STDOUT
+for redirection into a file.
+
+What to insert is specified by tokens in square brackets: You may
+extract a complete line, part of it (starting column, size) or a word
+(by number), even several items from a source line in any order. And
+this will be done either for a single line, or for a given range of
+lines of the input source.
+
+What you can do with LMOD:
+
+    * set environmental variables with information from (DOS) screen
+      output, like DIR, DATE..
+    * get keyboard input
+    * generate a command using extracted input data
+    * generate a list of commands for each item of a given (file) list
+    * extract (and modify) range of lines from a file
+    * modify lists or tables, arrange columns
+
+A simple example:    CD | LMOD cd [] > %temp%\return.bat
+
+    The CD command output (the current directory path) is piped to LMOD,
+    which generates a new CD command where the square brackets are
+    replaced with the piped string. The new command is sent to a batch
+    file for later use.
+
+To assign extracted data to an environmental variable, redirect a SET
+command (or SETX / WINSET) to a temporary batch file, and CALL it.
+This method will work under all DOS versions, including Windows NT and
+2000, which do not allow the manipulation of the COMMAND environment to
+set variables (as done by tools like NSET).
+
+Example:   CD | LMOD set currdir=[] > %temp%\temp.bat
+	   call %temp%\temp.bat
+
+Note:
+    If there is no input by pipe or redirection, the input is read from
+    the keyboard.
+    If there is no output redirection, the output will show on the
+    screen (handy for testing).
+
+Special LMOD features:
+
+   *  change case for extracted data
+   *  use tabs (to specified column) for formatted output
+   *  right aligned output fields (e.g. for numeric strings)
+   *  insert CR+LF to produce several output lines for each input line
+   *  omit CR+LF at end of the output line, to append to same line later
+   *  insert line number (to generate file names, for example)
+   *  insert characters by ASCII code or in quote marks
+
+
+Syntax
+------
+	LMOD options string_with_tokens
+	LMOD /?  (shows help screen)
+
+Options are used to specify the line(s) to select, or the separators
+for "words" (details see below). The string begins with the first non
+blank character succeeding the options (i.e. blank spaces ignored).
+
+Tokens are expressions in square brackets.
+
+
+Token expressions for input extraction
+--------------------------------------
+General format:
+
+	[p,l $n U|L Rs]
+	---------------
+	 p,l		  field to cut out by position and length
+	     $n 	  word reference by number (see below)
+		U|L	  case conversion
+		    Rs	  right alignment
+
+	All specifications are optional. An empty token [] refers to
+	the full input line. Blank spaces are ignored in expression.
+
+
+p,l	FIELD: starting column p (1...), length l, separated by comma.
+
+	Example: [14,8] extracts field starting at column 14, length=8
+
+	Defaults:
+	If no length is specified, the rest of the line is taken.
+	Example: [14] extracts rest of line starting position 14.
+
+	If no position is given either, the complete input line is taken.
+	Example: CD | LMOD The current directory is "[]"
+
+	Note: Leading spaces are preserved. Trailing spaces are always
+	removed from the inserted field.
+
+
+$n	WORD: number n (preceded by a $-sign), default number: 1.
+
+	This will extract the 1st, 2nd, 3rd.. word from the input line.
+	Example: [$6]  extracts the 6th word.
+
+	If a field is also specified, the extraction is limited to this
+	field.
+	Example: [14 $2]   takes the 2nd word from the part of the line
+			   starting column 14.
+
+	You may specify either a field or a word (number) or both.
+
+	For separators and special quote handling see section below.
+	Word numbers are accepted in the range of 1 to 99 (two digits).
+	An exclamation mark [$!] refers to the last word.
+
+	In addition to the word number an offset (plus/minus) may be
+	specified, e.g. $!-1 (one before the last word), or $%var%+2
+	A negative or zero reference will be corrected to $1.
+
+	Note: leading and trailing spaces, as well as delimiters, are
+	always removed when "words" are extracted.
+
+$n:m	Range: word n thru m, e.g. $2:4 or $!-3:! (last 4 words).
+	If the second reference (m) is before the first one (n), it will
+	be ignored. One blank space is inserted between words.
+
+	Note: [$2:4] is the same as:  [$2] [$3] [$4]
+
+
+U|L	CASE: upper|lower case conversion
+
+	Example: echo %string% | LMOD set string=[U] > temp.bat
+
+	Conversion includes extended ASCII characters of the standard
+	DOS character set (cp 437).
+	See CASE103.PAT for country specific modifications.
+
+
+Rs	ALIGNMENT: for right aligned string in output field of size n.
+	(The size defaults to the source field size, if specified.)
+	This will (re)produce formatted output of numeric strings
+	in right aligned columns.
+
+	Example: < list.txt LMOD ....[9,7 R9]....
+
+	Note: the alignment only works if the input field is NOT larger
+	than the size given by the Rs parameter.
+
+
+Special output tokens
+---------------------
+[=n]	Tab to position n (1...) in the output line, inserting blank
+	spaces up to the specified column.
+	This token has no effect, if the output has already passed the
+	specified position.
+
+[+]	Insert CR+LF (more than one output line may be generated for
+	each input line).
+
+[-]	Omit CR+LF at the end of the output. Should be placed at the
+	end of the output string, because the rest will be ignored.
+
+[#]	Insert line number
+	Three digits are used by default, starting 001 for the first
+	output line. (Actually, the output units will be numbered:
+	a unit may be broken into several physical lines by [+] tokens.)
+
+	The starting value can be preset by option /N. Example: /N00007
+	This will also define the number of digits used (max 9 allowed).
+
+[~n]	insert character with ASCII code n (decimal)
+
+[".."]	insert character(s) that may conflict with the DOS command line
+	handling, unless enclosed in quote marks. Example: [">"] or
+	["> file.ext"]. The quote marks will be removed.
+
+In case you need the "[" symbol as a normal character: double it.
+
+
+Line selection
+--------------
+The lines are selected by the command option /L.
+Without option /L the first (non-blank) line is taken.
+
+/Ln	the line number n (max 9 digits)
+/Ln-m	all lines n thru m
+/Ln:m	same (colon also indicates range)
+/Ln*	all lines starting n (up to end of file)
+/L*	all lines
+
+    Example:
+
+    dir %fname% | LMOD /L6 set FDATE=[29,8]> %temp%\temp.bat
+
+    ... will take line 6 of the DIR output with the (first) file
+    listed, and extract the date tag at column 29.
+
+    dir *.* /b | LMOD /L* ren "[]" "[L]"> %temp%\temp.bat
+
+    ... will rename all files to lower case (LFN's assumed)
+
+Empty lines:
+
+Usually it makes no sense to produce any output for empty lines, so
+LMOD doesn't by default. Note however, that LMOD first locates the
+physical lines as specified (empty lines do count!). Only empty lines
+within the given range are dropped.
+
+When a single line is specified, LMOD will give you the first non-empty
+line starting at the given line number. Note that the default is /L1,
+i.e. without the /L option the first non-empty line is taken.
+
+/E	Option to deactivate the special handling of empty lines
+
+
+Extracting words
+----------------
+Words are separated by blank space. In addition the following separators
+are defined by default (same as for batch file parameters):
+
+	comma, semicolon, equal sign
+
+Custom separators by option:
+
+/S....	This option deactivates the standard separators except blank
+	space. Instead, the following symbols (if any), up to a blank
+	space, are taken as new separators. If you need any of the
+	standard separators, you must specify them again.
+	Example: LMOD /S,# ..output string..
+
+/B...	Same as /S, but the blank space separator is also deactivated
+
+Separators are always stripped from the input before words are inserted
+into the output line.
+
+Note that a word does not have to consist of letters. Anything, numbers
+or symbols as well, may be "words" if enclosed in separators. Watch the
+comma in numeric strings!
+
+
+Quote handling
+--------------
+Quoted strings (only "double" quote marks) in an input line are regarded
+as ONE word, though they may include blank spaces and other separators.
+The quote marks will be stripped. Note that this special quote handling
+is only applied, when words are extracted.
+
+Example:
+    assumed input:    ONE "TWO THREE" FOUR
+    [$2] produces:    TWO THREE
+    "[$2]" makes:     "TWO THREE"	(quote marks restored)
+    [$3] will be:     FOUR
+
+In case you do not want the special quote handling, define the quote
+mark as additional separator (option /S or /B). It is recommended to
+specify two quote marks, especially when there are more occurrences of
+quote marks in the command line. You should always have balanced pairs
+of quote marks to avoid misinterpretation by COMMAND.COM.
+
+Example:      LMOD /S,"" Output "[$1]" ["> file.1"] > file.2
+
+
+TAB's in input file
+-------------------
+If there are TAB codes (Ctrl+I) in the input file, they will be expanded
+to the appropriate number of blank spaces before any action. Take this
+into account for field extraction (position, size) as well as for
+separator handling.
+
+
+Leading and trailing spaces
+---------------------------
+When words are extracted, all leading and trailing blank spaces are
+removed. For fields (position, length) or when the complete line is
+taken, only trailing spaces are removed; leading spaces remain!
+
+Any blank spaces within the output string (as given in the command line)
+are preserved. In addition you may use the TAB token to insert spaces
+up to a given column, or the right alignment of output fields.
+
+Important:
+Trailing spaces at the end of the output are also removed. This will
+avoid accidental spaces in an environmental variable when you produce a
+SET command.
+
+Examples:  echo set X=A > temp.bat	       (result: "A ")
+	   echo set X=A> temp.bat	       (result: "A")
+	   echo A | LMOD set X=[] > temp.bat   (result: "A")
+
+Only when you produce an output without CR/LF, the spaces before the
+[-] token will remain.
+
+Example:   echo A | LMOD set X=[]  [-] > temp.bat  (result: "A  ")
+
+
+Notes
+-----
+The file size is not limited. Maximum line size (in/out): 2Kb,
+Errorlevel 0: ok, 1: invalid token/expression, 2: invalid options
+Remember to delete temporary files.
+
+
+Examples (assuming WIN9x/english, LFN's)
+----------------------------------------
+
+(1) Set environmental variable to volume label of drive A:
+
+    VOL A: | LMOD set LABEL=[$6] > %temp%\temp.bat
+    call %temp%\temp.bat
+
+(2) Make batch file to restore current drive and directory later
+    (generating 2 output lines):
+
+    CD | LMOD [1,2][+]cd "[]" > %temp%\POPDIR.BAT
+
+(3) Keyboard input
+
+    LMOD /E set INPUT=[] > %temp%\temp.bat
+    call %temp%\temp.bat
+
+    Note: if you want to allow an empty input string, you must use
+    option /E. Otherwise LMOD ignores empty lines, and the input will
+    have to be terminated by Ctrl+"Z" in this case.
+
+(4) CHDIR to the directory of a given file with unknown path (%fn%),
+    using DIR header information in line 4:
+
+    dir "%fn%" | LMOD /L4 cd "[15]" > %temp%\temp.bat
+
+    (To be honest, there is an easier way: CD "%fn%\..")
+
+(5) Day of week and date to a log file:
+
+    echo.| DATE | LMOD Updated: [$4], [$5]>> some.log
+
+(6) Date and time into a single line:
+
+    echo.| DATE | LMOD Updated: [$4], [$5] [-] >> some.log
+    echo.| TIME | LMOD at [$3]>> some.log
+
+(7) Get (short) extension of file %fname% (which may include path):
+
+    dir "%fname%" | LMOD /L6 set EXT=[10,3]> %temp%\temp.bat
+    call %temp%\temp.bat
+
+    With the same method you can extract the (short) filename without
+    extension, or the size, date/time tag, LFN..
+
+(8) Rename a file (name may include path) to lower case:
+
+    dir %fname% /b | LMOD ren "%fname%" "[L]" > %temp%\temp.bat
+    call %temp%\temp.bat
+
+    Note that DIR /b lists filenames without path, unless option /s
+    is used in addition.
+
+(9) Rename all files in %folder% to lower case:
+
+    dir "%folder%" /b/a-d| LMOD /L* ren "%folder%\[]" "[L]"> %temp%\temp.bat
+    call %temp%\temp.bat
+
+
+Syntax summary (see: LMOD /?)
+-----------------------------
+	LMOD options string_with_tokens
+
+Options:
+	/Ln[-m] line [range] to select (default: first non blank line)
+	/L[n]*	all lines [starting n]
+	/E	include empty input lines (default: no output)
+	/S..	delimiters for word extraction, instead of default (,;=)
+	/B..	as /S, but excluding blank space as delimiter
+	/Nn	starting number (for token [#]), default: /N001
+
+Insert from source line (expression in square brackets):
+ [p,l $n U|L Rn]  default []: complete line
+	p,l	from position p, length l (default rest of line)
+	$n	word number n (! for last word), optional offset
+		$n:m for range n thru m
+	U|L	convert to upper|lower case
+	Rn	right aligned in output field of size n
+
+Other tokens:
+	[+]	insert CR+LF
+	[-]	omit CR+LF at end of output
+	[#]	line number (digits acc. to option, default:3)
+	[=n]	tab to position n in output line
+	[~n]	ASCII code n (decimal)
+	[".."]	quoted char/string (e.g. for redirection symbols)
+
+----
+LMOD is freeware by Horst Schaeffer - no warranties of any kind
+Contact -  E-Mail: horst.schaeffer@gmx.net
+
+= 04 DEC 2002
